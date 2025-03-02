@@ -8,20 +8,15 @@ import "forge-std/Test.sol";
 import {NoirHelper} from "foundry-noir-helper/NoirHelper.sol";
 
 
-contract StarterOnSonicTestnetTest is Test {
+contract StarterTest is Test {
     Starter public starter;
     UltraVerifier public verifier;
     NoirHelper public noirHelper;
 
     function setUp() public {
         noirHelper = new NoirHelper();
-        
-        address ULTRA_VERIFIER = vm.envAddress("ULTRAVERIFER_CONTRACT_ADDRESS_ON_SONIC_TESTNET");
-        address STARTER = vm.envAddress("STARTER_CONTRACT_ADDRESS_ON_SONIC_TESTNET");
-        verifier = UltraVerifier(ULTRA_VERIFIER);
-        //verifier = new UltraVerifier();
-        starter = Starter(STARTER);
-        //starter = new Starter(verifier);
+        verifier = new UltraVerifier();
+        starter = new Starter(verifier);
     }
 
     function test_verifyProof() public {

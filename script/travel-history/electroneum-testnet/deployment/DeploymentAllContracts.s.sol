@@ -3,8 +3,8 @@ pragma solidity ^0.8.17;
 import "forge-std/Script.sol";
 
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
-import { UltraVerifier } from "../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
-import { Starter } from "../contracts/Starter.sol";
+import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
+import { Starter } from "../../../contracts/Starter.sol";
 
 //import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
@@ -22,8 +22,8 @@ contract DeploymentAllContracts is Script {
     function setUp() public {}
 
     function run() public {
-        vm.createSelectFork("sonic_blaze_testnet");
-        uint256 deployerPrivateKey = vm.envUint("SONIC_BLAZE_TESTNET_PRIVATE_KEY");
+        vm.createSelectFork("electroneum_testnet");
+        uint256 deployerPrivateKey = vm.envUint("ELECTRONEUM_TESTNET_PRIVATE_KEY");
         //uint256 deployerPrivateKey = vm.envUint("LOCALHOST_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
 
@@ -34,7 +34,7 @@ contract DeploymentAllContracts is Script {
         vm.stopBroadcast();
 
         /// @dev - Logs of the deployed-contracts on Sonic Blaze Testnet
-        console.logString("Logs of the deployed-contracts on Sonic Blaze Testnet");
+        console.logString("Logs of the deployed-contracts on Electroneum Testnet");
         console.logString("\n");
         //console.log("%s: %s", "RewardPoolFactory SC", address(rewardPoolFactory));
         //console.logString("\n");
