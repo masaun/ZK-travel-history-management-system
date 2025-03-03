@@ -5,8 +5,8 @@ broadcast
 .env
 plonk_vk.sol
 
-circuits/circuit-for-country/arget/*
-circuits/circuit-for-travel-history/arget/*
+circuits/circuit-for-country/target/*
+circuits/circuit-for-travel-history/target/*
 
 .DS_Store
 ./circuits/.DS_Store

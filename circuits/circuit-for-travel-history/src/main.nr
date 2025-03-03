@@ -6,9 +6,9 @@ mod tests; // tests/mod.nr
  * @dev - A travel history should be a recursion proof. (See the details: https://noir-lang.org/docs/noir/standard_library/recursion )
  */
 fn main(
-    verification_key : [Field; 114], 
-    proof_a : [Field; 93], 
-    proof_b : [Field; 93], 
+    verification_key : [Field; 3], 
+    proof_a : [Field; 3], 
+    proof_b : [Field; 3], 
     public_inputs : [Field; 1], 
     key_hash : Field,
 ) {
