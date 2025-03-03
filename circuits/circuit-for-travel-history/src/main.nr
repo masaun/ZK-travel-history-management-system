@@ -1,23 +1,57 @@
 use dep::std;
 mod tests; // tests/mod.nr
 
+/**
+ * @notice - This function is used to verify the validity of the travel history.
+ * @dev - A travel history should be a recursion proof. (See the details: https://noir-lang.org/docs/noir/standard_library/recursion )
+ */
 fn main(
-    root: pub Field, // @dev - Merkle Root
-    index: Field,
-    hash_path: [Field; 2],
-    secret: Field,
-    employeeId: Field,  // @dev - Employee ID (= Customer ID)
-    income: u64         // @dev - Income of the employee (= Customer)
-) -> pub Field {
-    let note_commitment = std::hash::pedersen_hash([secret]);
-    let nullifier = std::hash::pedersen_hash([root, secret, employeeId]);
+    verification_key : [Field; 3], 
+    proof_a : [Field; 3], 
+    proof_b : [Field; 3], 
+    public_inputs : [Field; 1], 
+    key_hash : Field,
+) {
+    // Verify the travel proof "a"
+    std::verify_proof(
+        verification_key, 
+        proof_a, 
+        public_inputs, 
+        key_hash
+    );
 
-    // Constraint: root == check_root
-    let check_root = std::merkle::compute_merkle_root(note_commitment, index, hash_path);
-    assert(root == check_root);
-
-    // Constraint: income >= 4500
-    assert(income >= 4500, "Annual Income of customer should be greater than 450 USD / year");
-
-    nullifier // @dev - Return the nullifier -> Then, it will be stored on-chain so that it can be used to prevent double-spending.
+    // Verify the travel proof "b"
+    std::verify_proof(
+        verification_key, 
+        proof_b, 
+        public_inputs, 
+        key_hash
+    );
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Reference Implementation of a "Recursion Proof": https://noir-lang.org/docs/noir/standard_library/recursion
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// fn main(
+//     verification_key : [Field; 114],
+//     proof : [Field; 93],
+//     public_inputs : [Field; 1],
+//     key_hash : Field,
+//     proof_b : [Field; 93],
+// ) {
+//     std::verify_proof(
+//         verification_key,
+//         proof,
+//         public_inputs,
+//         key_hash
+//     );
+
+//     std::verify_proof(
+//         verification_key,
+//         proof_b,
+//         public_inputs,
+//         key_hash
+//     );
+// }
