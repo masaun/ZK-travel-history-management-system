@@ -4,7 +4,9 @@ proofs
 broadcast
 .env
 plonk_vk.sol
-circuits/target/*
+
+circuits/circuit-for-country/arget/*
+circuits/circuit-for-travel-history/arget/*
 
 .DS_Store
 ./circuits/.DS_Store
@@ -13,10 +15,13 @@ circuits/target/*
 ./script/.DS_Store
 ./test/.DS_Store
 
-circuits/Prover.toml
-circuits/Verifier.toml
+circuits/circuit-for-country/Prover.toml
+circuits/circuit-for-travel-history/Prover.toml
+circuits/circuit-for-country/Verifier.toml
+circuits/circuit-for-travel-history/Verifier.toml
 
-circuits/test_verifyProof.toml
+circuits/circuit-for-country/test_verifyProof.toml
+circuits/circuit-for-travel-history/test_verifyProof.toml
 
 node_modules
 package-lock.json

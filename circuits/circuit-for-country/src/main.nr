@@ -1,6 +1,7 @@
 use dep::std;
 mod tests; // tests/mod.nr
 
+#[recursive]
 fn main(
     root: pub Field, // @dev - Merkle Root
     index: Field,
