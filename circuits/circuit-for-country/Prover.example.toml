@@ -1,0 +1,8 @@
+root = "0x..."
+hash_path = [
+  "0x...",
+  "0x..."
+]
+index = ""
+secret = ""
+country_code = ""
