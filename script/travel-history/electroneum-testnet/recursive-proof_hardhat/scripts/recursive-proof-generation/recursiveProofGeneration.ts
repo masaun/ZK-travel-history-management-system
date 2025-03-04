@@ -41,6 +41,7 @@ async function setUp() {
         //recursive: await getCircuit('recursion'),
         recursive: await getCircuit('circuit-for-travel-history'),
     };
+    console.log(`circuits: ${circuits}`);
 
     backends = {
         main: new BarretenbergBackend(circuits.main, { threads: 8 }),
