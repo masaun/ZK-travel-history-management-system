@@ -3,7 +3,7 @@
 ## Run the script
 - Run the `scripts/helloWorld.ts`:
 ```bash
-sh ./scripts/runningHelloWorld.s
+sh ./scripts/runningHelloWorld.sh
 ```
 Or,
 ```bash

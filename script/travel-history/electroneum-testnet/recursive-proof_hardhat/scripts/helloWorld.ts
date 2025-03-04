@@ -7,7 +7,7 @@ async function main() {
   // for (const account of accounts) {
   //   console.log(account.address);
   // }
-  console.log("Hardhat script is successfully running!!");
+  console.log("Hardhat script is successfully running!!"); /// @dev - Successfully running!! 
 }
 
 main().catch((error) => {
