@@ -91,7 +91,7 @@ async function generateProof() {
 
 async function main() {
     await setUp();
-    await generateProof();
+    //await generateProof();
 }
 
 main().catch((error) => {
