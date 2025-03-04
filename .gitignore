@@ -23,5 +23,6 @@ circuits/circuit-for-travel-history/Verifier.toml
 circuits/circuit-for-country/test_verifyProof.toml
 circuits/circuit-for-travel-history/test_verifyProof.toml
 
+hardhat
 node_modules
 package-lock.json

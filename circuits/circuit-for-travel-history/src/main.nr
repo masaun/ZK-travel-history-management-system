@@ -11,7 +11,7 @@ fn main(
     public_inputs : [Field; 1], 
     key_hash : Field, // @dev - vkHash
 ) {
-    // Verify the travel proof "a"
+    // Verify the travel proof
     std::verify_proof(
         verification_key, 
         proof, 
