@@ -20,13 +20,14 @@ let noirs: Noirs;
  * @notice - Get the compiled circuit
  */
 async function getCircuit(name: string) {
-  const basePath = resolve(join('../noir', name));
-  const fm = createFileManager(basePath);
-  const compiled = await compile(fm, basePath);
-  if (!('program' in compiled)) {
-    throw new Error('Compilation failed');
-  }
-  return compiled.program;
+    const basePath = resolve(join('../../../../../../circuits', name));
+    //const basePath = resolve(join('../noir', name));
+    const fm = createFileManager(basePath);
+    const compiled = await compile(fm, basePath);
+    if (!('program' in compiled)) {
+        throw new Error('Compilation failed');
+    }
+    return compiled.program;
 }
 
 
@@ -35,8 +36,10 @@ async function getCircuit(name: string) {
  */
 async function setUp() {
     circuits = {
-        main: await getCircuit('main'),
-        recursive: await getCircuit('recursion'),
+        //main: await getCircuit('main'),
+        main: await getCircuit('circuit-for-country'),
+        //recursive: await getCircuit('recursion'),
+        recursive: await getCircuit('circuit-for-travel-history'),
     };
 
     backends = {
@@ -59,6 +62,18 @@ async function generateProof() {
     let intermediateProof: ProofData;
     let finalProof: ProofData;
 
+    //const mainInput = { x: 1, y: 2 };
+    const mainInput = { 
+        root: "0x215597bacd9c7e977dfc170f320074155de974be494579d2586e5b268fa3b629",
+        hash_path: [
+          "0x1efa9d6bb4dfdf86063cc77efdec90eb9262079230f1898049efad264835b6c8",
+          "0x2a653551d87767c545a2a11b29f0581a392b4e177a87c8e3eb425c51a26a8c77"
+        ],
+        index: "0",
+        secret: "1",
+        country_code "1"
+    };
+
     const { witness } = await noirs.main.execute(mainInput);
     intermediateProof = await backends.main.generateProof(witness);
 
@@ -80,7 +95,7 @@ async function generateProof() {
     recursiveInputs = {
         verification_key: vkAsFields,
         proof: proofAsFields,
-        public_inputs: [mainInput.y],
+        public_inputs: [mainInput.country_code],
         key_hash: vkHash,
     };
 
