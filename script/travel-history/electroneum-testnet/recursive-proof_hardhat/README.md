@@ -12,6 +12,17 @@ npx hardhat run scripts/helloWorld.ts
 
 <br>
 
+- Run the `scripts/recursive-proof-generation/recursiveProofGeneration.ts`:
+```bash
+sh ./scripts/recursive-proof-generation/runningRecursiveProofGeneration.sh
+```
+Or,
+```bash
+npx hardhat run scripts/recursive-proof-generation/recursiveProofGeneration.ts
+```
+
+<br>
+
 <hr>
 
 # Sample Hardhat Project
