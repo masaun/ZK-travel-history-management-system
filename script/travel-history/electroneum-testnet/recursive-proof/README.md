@@ -6,3 +6,10 @@
 ```bash
 npm i --force
 ```
+
+<br>
+
+- 2/ Run the Recursion Proof generation script
+```bash
+sh recursive-proof-generation/recursiveProofGeneration.ts
+```
