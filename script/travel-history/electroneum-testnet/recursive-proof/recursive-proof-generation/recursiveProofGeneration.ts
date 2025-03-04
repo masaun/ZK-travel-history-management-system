@@ -55,11 +55,11 @@ async function setUp() {
  * @notice - Proof generation
  */
 async function generateProof() {
-  let recursiveInputs: any;
-  let intermediateProof: ProofData;
-  let finalProof: ProofData;
+    let recursiveInputs: any;
+    let intermediateProof: ProofData;
+    let finalProof: ProofData;
 
-  const { witness } = await noirs.main.execute(mainInput);
+    const { witness } = await noirs.main.execute(mainInput);
     intermediateProof = await backends.main.generateProof(witness);
 
     const { proof, publicInputs } = intermediateProof;
@@ -88,3 +88,12 @@ async function generateProof() {
     finalProof = await noirs.recursive.generateProof(recursiveInputs);
     expect(finalProof.proof instanceof Uint8Array).to.be.true;
 }
+
+async function main() {
+    await setUp();
+    await generateProof();
+}
+
+main().catch((error) => {
+  console.error(error);
+});
