@@ -6,6 +6,6 @@
 # fi
 
 echo "Run the ./recursive-proof-generation.ts on localhost network"
-npx hardhat --network localhost run recursiveProofGeneration.ts
+npx hardhat run --network localhost recursiveProofGeneration.ts
 #node ./recursiveProofGeneration.ts
 

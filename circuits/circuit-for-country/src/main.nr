@@ -1,7 +1,7 @@
 use dep::std;
 mod tests; // tests/mod.nr
 
-#[recursive]
+//#[recursive]
 fn main(
     root: pub Field,   // @dev - Merkle Root
     hash_path: [Field; 2],

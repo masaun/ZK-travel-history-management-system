@@ -3,10 +3,11 @@ mod test_inputs; // test_inputs.nr
 mod tests {
     use crate::main; // src/main.nr
     //use crate::MAX_DATA_LENGTH;
-    use crate::tests::test_inputs::TestCase1::{
-        SIGNED_DATA, NULLIFIER_SEED, SIGNED_DATA_LENGTH, DELIMITER, SIGNATURE_LIMBS, MODULUS_LIMBS,
-        REDC_LIMBS, SIGNAL_HASH,
-    };
+    
+    // use crate::tests::test_inputs::TestCase1::{
+    //     SIGNED_DATA, NULLIFIER_SEED, SIGNED_DATA_LENGTH, DELIMITER, SIGNATURE_LIMBS, MODULUS_LIMBS,
+    //     REDC_LIMBS, SIGNAL_HASH,
+    // };
 
     #[test]
     fn test_verifier() {
