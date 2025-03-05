@@ -1,4 +1,18 @@
-# ZK Sonic in Noir
+# ZK Travel History in Noir
+
+## Script /w NoirJS to generate a recursive proof
+
+- Running the script file of the `recursiveProofGeneration.ts` (via the `Hardhat` script)
+```bash
+cd script/travel-history/electroneum-testnet/recursive-proof_hardhat/scripts/recursive-proof-generation
+
+sh runningRecursiveProofGeneration.sh
+```
+
+<br>
+
+<hr>
+
 
 # Installations
 
