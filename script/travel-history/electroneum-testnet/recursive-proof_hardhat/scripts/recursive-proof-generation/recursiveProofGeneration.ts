@@ -76,7 +76,16 @@ async function generateProof() {
     };
 
     const { witness } = await noirs.main.execute(mainInput);
-    intermediateProof = await backends.main.generateProof(witness);
+    console.log(`witness: ${witness}`);  /// @dev - [Log]: OK
+
+    try {
+        intermediateProof = await backends.main.generateProof(witness);
+        console.log(`intermediateProof.proof: ${intermediateProof.proof}`); 
+    } catch (error) {
+        console.log(`error: ${error}`);  /// @dev - [Log]: RuntimeError: unreachable
+    }
+    // intermediateProof = await backends.main.generateProof(witness);
+    // console.log(`intermediateProof.proof: ${intermediateProof.proof}`);
 
     const { proof, publicInputs } = intermediateProof;
     console.log(`proof: ${proof}, publicInputs: ${publicInputs}`);
