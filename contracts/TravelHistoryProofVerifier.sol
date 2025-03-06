@@ -2,7 +2,7 @@ pragma solidity ^0.8.17;
 
 import "../circuits/target/contract.sol";
 
-contract Starter {
+contract TravelHistoryProofVerifier {
     UltraVerifier public verifier;
 
     constructor(UltraVerifier _verifier) {
