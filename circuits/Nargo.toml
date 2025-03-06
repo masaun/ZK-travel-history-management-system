@@ -1,5 +1,5 @@
 [package]
-name="traveled_country"
+name="travel_history"
 type="bin"
 authors = ["critesjosh"]
 compiler_version = ">=0.31.0"
