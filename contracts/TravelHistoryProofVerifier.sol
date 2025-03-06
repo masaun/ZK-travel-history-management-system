@@ -1,6 +1,6 @@
 pragma solidity ^0.8.17;
 
-import "../circuits/target/contract.sol";
+import { UltraVerifier } from "../circuits/target/contract.sol";
 
 contract TravelHistoryProofVerifier {
     UltraVerifier public verifier;
@@ -9,8 +9,8 @@ contract TravelHistoryProofVerifier {
         verifier = _verifier;
     }
 
-    function verifyEqual(bytes calldata proof, bytes32[] calldata y) public view returns (bool) {
-        bool proofResult = verifier.verify(proof, y);
+    function verifyEqual(bytes calldata proof, bytes32[] calldata publicInput) public view returns (bool) {
+        bool proofResult = verifier.verify(proof, publicInput);
         require(proofResult, "Proof is not valid");
         return proofResult;
     }
