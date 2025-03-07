@@ -45,7 +45,7 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
                   .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
                   .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
 
-        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 3);
+        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 5);
         travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
     }
 
@@ -72,7 +72,7 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
                   .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
                   .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
 
-        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 3);
+        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 5);
 
         /// @dev - This should fail because the public input is wrong
         bytes32[] memory fakePublicInputs = new bytes32[](3);
