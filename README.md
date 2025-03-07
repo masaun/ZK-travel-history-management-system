@@ -1,4 +1,4 @@
-# ZK Travel History Management System (built on [`Noir`](https://noir-lang.org/docs/))
+# ZK Travel History Management System
 
 ## Tech Stack
 - `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
