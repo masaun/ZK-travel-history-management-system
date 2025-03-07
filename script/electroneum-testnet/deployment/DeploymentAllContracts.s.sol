@@ -5,6 +5,7 @@ import "forge-std/Script.sol";
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
 import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 import { TravelHistoryProofVerifier } from "../../../contracts/TravelHistoryProofVerifier.sol";
+import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.sol";
 
 //import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
@@ -18,6 +19,7 @@ contract DeploymentAllContracts is Script {
 
     UltraVerifier public verifier;
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
+    TravelHistoryManager public travelHistoryManager;
 
     function setUp() public {}
 
@@ -30,6 +32,7 @@ contract DeploymentAllContracts is Script {
         //vm.startBroadcast();
         verifier = new UltraVerifier();
         travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
+        travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
 
         vm.stopBroadcast();
 
