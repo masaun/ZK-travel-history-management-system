@@ -1,5 +1,13 @@
 # ZK Travel History in Noir
 
+## Verify a travel history of a traveler
+- `TravelHistoryManager.sol` can be customized by each authority (i.e. A border control of each country)
+
+
+
+
+<br>
+
 ## Script /w NoirJS to generate a recursive proof
 
 - Running the script file of the `recursiveProofGeneration.ts` (via the `Hardhat` script)
