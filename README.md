@@ -1,21 +1,49 @@
-# ZK Travel History in Noir
+# ZK Travel History Management System
 
-## Verify a travel history of a traveler
-- `TravelHistoryManager.sol` can be customized by each authority (i.e. A border control of each country)
-
-
-
+## Tech Stack
+- `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
+- Smart Contract: Written in Solidity (Framework: Foundry)
+- Blockchain: [`Electroneum`](https://developer.electroneum.com/) (Testnet)
 
 <br>
 
-## Script /w NoirJS to generate a recursive proof
+## Overview
 
-- Running the script file of the `recursiveProofGeneration.ts` (via the `Hardhat` script)
-```bash
-cd script/travel-history/electroneum-testnet/recursive-proof_hardhat/scripts/recursive-proof-generation
+- In the international travel scean, an international traveler would submit and show their passport at the border control at the airport in order for a border protection officer to be able to check their travel history and so on. 
+  - At this point, the border protection officer would require the international traveler to submit and show their passport.
+    (At this point, If an interanational traveler had stayed in certain countries for a long time beyond the days limit of that these international traveler can stay the country, the border protection officer may refuse that the international traveler enter their country)
 
-sh runningRecursiveProofGeneration.sh
-```
+  - However, some of information-written in the passport may not be needed for the border protection officer to check the international traveler's travel history and so on.
+
+<br>
+
+- This project ("ZK Travel History Management System") can solve this problem by using combination of the `ZK` (`Zero-Knowledge`) circuit and the Smart Contract on Blockchain. 
+  - 1/ Everytime an international traveler would depart from an airport in abroad, the international traveler would generate a `travel history ZK proof`, which includes information of a `country` they stayed and an `enter/exit date` of the country, via the ZK circuit.
+
+  - 2/ When an international traveler would arrived at an airport in abroad and come to the checkpoint of the border control, the international traveler would submit the `travel history ZK proof`, which was generated when the step 1/, to the `TravelHistoryManager` contract (`TravelHistoryManager.sol`) - instead of submitting their passport to the border protection officer.
+
+  - 3/ The border protection officer can validate whether or not the travel history of the international traveler has no problem `without seeing` all data from the passport. Also, the international traveler can efficiently be approved `without revealing` all data by submitting the passport.
+
+<br>
+
+- The `TravelHistoryManager` contract (`TravelHistoryManager.sol`) is supposed to be deployed by the border protection/control authority of each country.
+  - Since the requirement of the travel history is different depends on country, a border protection/control authority of an country is supposed to modify the validation in the `TravelHistoryManager` contract and deploy it on blockchain (`Electroneum Testnet`).
+
+  - i.e). In the example `TravelHistoryManager` contract (`TravelHistoryManager.sol`) deployed on `Electroneum Testnet`, the validation to check whether or not an international traveler stay in the Schengen Area beyond `90 days limit`.
+
+- NOTE:
+  - This project would focus on a `travel history`. In the future, other items should be added.
+  - In this project, the [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask) would be used as a blockchain where the Smart Contracts for this project are deployed.
+
+<br>
+
+## Deployed-smart contracts on [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask)
+
+| Contract Name | Descripttion | Deployed-contract addresses on Electroneum Testnet |
+| ------------- |:-------------:| -----:|
+| UltraVerifier | The UltraPlonk Verifer contract (`./circuits/target/contract.sol`), which is generated based on ZK circuit in Noir (`./circuits/src/main.nr`). FYI: To generated this contract, the way of the [Noir's Solidity Verifier generation](https://noir-lang.org/docs/how_to/how-to-solidity-verifier) was used. | [0x0A95E7Fc5c292eCe47893E63A1380f08a061814A](https://blockexplorer.thesecurityteam.rocks/address/0x0A95E7Fc5c292eCe47893E63A1380f08a061814A) |
+| TravelHistoryProofVerifier | The smart contract that enable to validate whether or not a proof-submitted is valid. | [0xE82595069b66064345f8EeB162e3c4e2F4cED704](https://blockexplorer.thesecurityteam.rocks/address/0xE82595069b66064345f8EeB162e3c4e2F4cED704) |
+| TravelHistoryManager | The example smart contract that enable to validate whether or not a travel history proof-submitted is valid and validate whether or not the traveler breach the days limit of staying a country | [0xED169AF4E8d68d167B8c7bf66f241f30B8cA8083](https://blockexplorer.thesecurityteam.rocks/address/0xED169AF4E8d68d167B8c7bf66f241f30B8cA8083) |
 
 <br>
 
@@ -34,7 +62,7 @@ forge install 0xnonso/foundry-noir-helper
 
 <br>
 
-## ZK circuit - Generate (Prove) an Ultraplonk proof in Noir
+## ZK circuit - Generate (Prove) an Ultraplonk proof in [`Noir`](https://noir-lang.org/docs/)
 
 - 1/ Move to the `./circuits` directory:
 ```shell
@@ -47,20 +75,14 @@ cp Prover.example.toml Prover.toml
 ```
 
 - 3/ Write the `input data` should be written in the `Prover.toml`.
-  - [NOTE]: `"Boolean"` type data should be written in a string number (True: `"0"` / False: `"1"`).
-```toml
-return = ""
-x = ""
-y = ""
-```
 
 
-- 2/ Run the `build.sh` to run ZK circuit
+- 4/ Run the `build.sh` to run ZK circuit
 ```shell
 sh build.sh
 ```
 
-- 3/ The UltraVerifier contract (`contract.sol`) and `proof` and `vk` in Noir would be generated under the `./circuits/target`.
+- 5/ The UltraVerifier contract (`contract.sol`) and `proof` and `vk` in Noir would be generated under the `./circuits/target`.
 
 
 <br>
@@ -83,36 +105,6 @@ sh ./buildContract.sh
 
 <br>
 
-## Smart Contract - Script on Sonic Testnet / Electroneum Testnet
-
-- Run the script of the `Starter.s.sol`, which is the test file of the `Starter.sol` on Sonic Testnet.
-```shell
-sh ./script/starter-script.sh
-```
-
-<br>
-
-- Run the script of the `Starter.s.sol`, which is the test file of the `Starter.sol` on Electroneum Testnet.
-```shell
-sh ./script/electroneum-testnet/starter-script.sh
-```
-
-<br>
-
-- Run the script of the `Verify.s.sol`, which is the test file of the `UltraVerifier.sol` on Sonic Testnet.
-```shell
-sh ./script/verify-script.sh
-```
-
-<br>
-
-- Run the script of the `Verify.s.sol`, which is the test file of the `UltraVerifier.sol` on Electroneum Testnet.
-```shell
-sh ./script/electroneum-testnet/verify-script.sh
-```
-
-<br>
-
 ## Smart Contract - Test on Local Network / Electroneum Testnet
 
 - Run the test of the `TravelHistoryProofVerifier.t.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Local Network.
@@ -127,11 +119,16 @@ sh ./test/runningTest_TravelHistoryProofVerifier.sh
 sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneumTestnet.sh
 ```
 
-
+<br>
 
 <br>
 
+## Smart Contract - Script on `Electroneum Testnet`
 
+- Run the script of the `TravelHistoryProofVerifier.s.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Electroneum Testnet.
+```shell
+sh ./script/electroneum-testnet/runningScript_TravelHistoryProofVerifier.sh
+```
 
 <br>
 
@@ -140,184 +137,38 @@ sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneu
 - NOTE: Each Smart Contract has been deployed on `Electroneum Testnet`. See the `"Deployed-smart contracts onSonic Testnet"` paragraph above in this README.
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
-  - Then, you should add a private key of your deployer address to the `SONIC_BLAZE_TESTNET_PRIVATE_KEY` /or the `ELECTRONEUM_TESTNET_PRIVATE_KEY`.
+  - Then, you should add a private key of your deployer address to the `ELECTRONEUM_TESTNET_PRIVATE_KEY`.
 ```shell
 cp .env.example .env
 ```
 
-- 2/ Deploy all contracts on Sonic Testnet by running the `script/DeploymentAllContracts.s.sol` 
-```bash
-sh ./script/deployment.sh
-``
-Or, directly executing the following command:
-```bash
-/// [NOTE]: Execute the following at the root directory.
-
-forge script script/DeploymentAllContracts.s.sol --broadcast --private-key <SONIC_BLAZE_TESTNET_PRIVATE_KEY> \
-    ./circuits/target/contract.sol:UltraVerifier \
-    ./Starter.sol:Starter --skip-simulation
-```
-
-<br>
-
-- 2/ Deploy all contracts on Electroneum Testnet by running the `script/DeploymentAllContracts.s.sol` 
+- 2/ Deploy all contracts on `Electroneum Testnet` by running the `script/electroneum-testnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
 sh ./script/electroneum-testnet/deployment/deployment-on-electroneum-testnet.sh
-``
+```
 Or, directly executing the following command:
 ```bash
-/// [NOTE]: Execute the following at the root directory.
+# [NOTE]: Execute the following at the root directory.
 
 forge script script/electroneum-testnet/deployment/DeploymentAllContracts.s.sol --broadcast --private-key ${ELECTRONEUM_TESTNET_PRIVATE_KEY} \
     ./circuits/target/contract.sol:UltraVerifier \
-    ./Starter.sol:Starter --skip-simulation --legacy
+    ./TravelHistoryProofVerifier.sol:TravelHistoryProofVerifier \
+    ./TravelHistoryManager.sol:TravelHistoryManager --skip-simulation --legacy
+
+# [NOTE - Adding the "--legacy" option]: Due to this error - Error: Failed to estimate EIP1559 fees. This chain might not support EIP1559, try adding --legacy to your command.
 ```
 
 <br>
 
-<hr>
 
-# Noir with Foundry
+## References and Resources
 
-This example uses Foundry to deploy and test a verifier.
+- Noir:
+  - Doc: https://noir-lang.org/docs/getting_started/quick_start
+  - `noir-starter` (for Foundry): https://github.com/AztecProtocol/noir-starter/tree/main/with-foundry
 
-## Getting Started
 
-Want to get started in a pinch? Start your project in a free Github Codespace!
-
-[![Start your project in a free Github Codespace!](https://github.com/codespaces/badge.svg)](https://codespaces.new/noir-lang/noir-starter)
-
-In the meantime, follow these simple steps to work on your own machine:
-
-Install [noirup](https://noir-lang.org/docs/getting_started/noir_installation) with
-
-1. Install [noirup](https://noir-lang.org/docs/getting_started/noir_installation):
-
-   ```bash
-   curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
-   ```
-
-2. Install Nargo:
-
-   ```bash
-   noirup
-   ```
-
-3. Install foundryup and follow the instructions on screen. You should then have all the foundry
-   tools like `forge`, `cast`, `anvil` and `chisel`.
-
-```bash
-curl -L https://foundry.paradigm.xyz | bash
-```
-
-4. Install foundry dependencies by running `forge install 0xnonso/foundry-noir-helper --no-commit`.
-
-5. Install `bbup`, the tool for managing Barretenberg versions, by following the instructions
-   [here](https://github.com/AztecProtocol/aztec-packages/blob/master/barretenberg/bbup/README.md#installation).
-
-6. Then run `bbup`.
-
-## Generate verifier contract and proof
-
-### Contract
-
-The deployment assumes a verifier contract has been generated by nargo. In order to do this, run:
-
-```bash
-cd circuits
-nargo compile
-bb write_vk -b ./target/with_foundry.json
-bb contract
-```
-
-A file named `contract.sol` should appear in the `circuits/target` folder.
-
-### Test with Foundry
-
-We're ready to test with Foundry. There's a basic test inside the `test` folder that deploys the
-verifier contract, the `Starter` contract and two bytes32 arrays correspondent to good and bad
-solutions to your circuit.
-
-By running the following command, forge will compile the contract with 5000 rounds of optimization
-and the London EVM version. **You need to use these optimizer settings to suppress the "stack too
-deep" error on the solc compiler**. Then it will run the test, expecting it to pass with correct
-inputs, and fail with wrong inputs:
-
-```bash
-forge test --optimize --optimizer-runs 5000 --evm-version cancun
-```
-
-#### Testing On-chain
-
-You can test that the Noir Solidity verifier contract works on a given chain by running the
-`Verify.s.sol` script against the appropriate RPC endpoint.
-
-```bash
-forge script script/Verify.s.sol --rpc-url $RPC_ENDPOINT  --broadcast
-```
-
-If that doesn't work, you can add the network to Metamask and deploy and test via
-[Remix](https://remix.ethereum.org/).
-
-Note that some EVM network infrastructure may behave differently and this script may fail for
-reasons unrelated to the compatibility of the verifier contract.
-
-### Deploy with Foundry
-
-This template also has a script to help you deploy on your own network. But for that you need to run
-your own node or, alternatively, deploy on a testnet.
-
-#### (Option 1) Run a local node
-
-If you want to deploy locally, run a node by opening a terminal and running
-
-```bash
-anvil
-```
-
-This should start a local node listening on `http://localhost:8545`. It will also give you many
-private keys.
-
-Edit your `.env` file to look like:
-
-```
-ANVIL_RPC=http://localhost:8545
-LOCALHOST_PRIVATE_KEY=<the private key you just got from anvil>
-```
-
-#### (Option 2) Prepare for testnet
-
-Pick a testnet like Sepolia or Goerli. Generate a private key and use a faucet (like
-[this one for Sepolia](https://sepoliafaucet.com/)) to get some coins in there.
-
-Edit your `.env` file to look like:
-
-```env
-SEPOLIA_RPC=https://rpc2.sepolia.org
-LOCALHOST_PRIVATE_KEY=<the private key of the account with your coins>
-```
-
-#### Run the deploy script
-
-You need to source your `.env` file before deploying. Do that with:
-
-```bash
-source .env
-```
-
-Then run the deployment with:
-
-```bash
-forge script script/Starter.s.sol --rpc-url $ANVIL_RPC --broadcast --verify
-```
-
-Replace `$ANVIL_RPC` with the testnet RPC, if you're deploying on a testnet.
-
-## Developing on this template
-
-This template doesn't include settings you may need to deal with syntax highlighting and
-IDE-specific settings (i.e. VScode). Please follow the instructions on the
-[Foundry book](https://book.getfoundry.sh/config/vscode) to set that up.
-
-It's **highly recommended** you get familiar with [Foundry](https://book.getfoundry.sh) before
-developing on this template.
+- Electroneum: 
+  - Block Explorer (on Electroneum Testnet): https://blockexplorer.thesecurityteam.rocks
+  - Doc (icl. RPC, etc): https://developer.electroneum.com/electroneum-stack/metamask
+  - Fancet: https://faucet.electroneum.com/
