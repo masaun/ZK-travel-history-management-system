@@ -5,4 +5,8 @@ hash_path = [
 ]
 index = ""
 secret = ""
-country_code = ""
+#name = ""             # @dev - Name of the traveler
+passport_number = ""  # @dev - Passport number of the traveler
+country_code = ""     # @dev - i.e). If a country that a traveler visit is USA, its country code is "1" 
+enter_date = ""       # @dev - UNIX timestamp
+exit_date = ""        # @dev - UNIX timestamp

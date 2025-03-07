@@ -7,7 +7,11 @@ fn main(
     hash_path: [Field; 2],
     index: Field,
     secret: Field,
-    country_code: pub u64 // @dev - i.e). If a country that a traveler visit is USA, its country code is "1" (by removing "+" from "+1"). If the country is "Dominican Republic" (+1-809), its country code is "1809".
+    //name: Field,           // @dev - Name of the traveler
+    passport_number: Field,  // @dev - Passport number of the traveler
+    country_code: pub u64,   // @dev - i.e). If a country that a traveler visit is USA, its country code is "1" (by removing "+" from "+1"). If the country is "Dominican Republic" (+1-809), its country code is "1809".
+    enter_date: u64,         // @dev - UNIX timestamp
+    exit_date: u64,          // @dev - UNIX timestamp
 ) -> pub Field {
     let note_commitment = std::hash::pedersen_hash([secret]);
     let nullifier = std::hash::pedersen_hash([root, secret, root, secret]);
