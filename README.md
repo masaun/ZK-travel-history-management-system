@@ -37,6 +37,12 @@
 
 <br>
 
+## Demo Video
+
+- https://youtu.be/qBIm-d0m_LY?si=mHVC4JvtmZgZUPjP
+
+<br>
+
 ## Deployed-smart contracts on [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask)
 
 | Contract Name | Descripttion | Deployed-contract addresses on Electroneum Testnet |
