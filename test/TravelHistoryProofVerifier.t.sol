@@ -33,7 +33,9 @@ contract TravelHistoryProofVerifierTest is Test {
                   //.withInput("hash_path", hash_path)
                   .withInput("index", bytes32(uint256(0)))
                   .withInput("secret", bytes32(uint256(1))) /// @dev - [NOTE]: 'Field' type in Noir must be the form of this (= bytes32(uint256(XXX))).
-                  .withInput("country_code", bytes32(uint256(1)));
+                  .withInput("country_code", uint256(1))
+                  .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
+                  .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
 
         (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 3);
         travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
@@ -55,7 +57,9 @@ contract TravelHistoryProofVerifierTest is Test {
                   //.withInput("hash_path", hash_path)
                   .withInput("index", uint256(0))
                   .withInput("secret", uint256(1))
-                  .withInput("country_code", uint256(31));   
+                  .withInput("country_code", uint256(31))
+                  .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
+                  .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
 
         (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 3);
 

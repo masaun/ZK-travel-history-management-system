@@ -6,3 +6,5 @@ hash_path = [
 index = ""
 secret = ""
 country_code = ""
+enter_date = ""
+exit_date = ""
