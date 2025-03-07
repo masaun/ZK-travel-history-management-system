@@ -1,5 +1,12 @@
 # ZK Travel History Management System (built on [`Noir`](https://noir-lang.org/docs/))
 
+## Tech Stack
+- `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
+- Smart Contract: Written in Solidity (Framework: Foundry)
+- Blockchain: [`Electroneum`](https://developer.electroneum.com/) (Testnet)
+
+<br>
+
 ## Overview
 
 - In the international travel scean, an international traveler would submit and show their passport at the border control at the airport in order for a border protection officer to be able to check their travel history and so on. 
@@ -27,14 +34,6 @@
 - NOTE:
   - This project would focus on a `travel history`. In the future, other items should be added.
   - In this project, the [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask) would be used as a blockchain where the Smart Contracts for this project are deployed.
-
-
-
-<br>
-
-## Tech Stack
-- `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
-- Smart Contract: Written in Solidity (Framework: Foundry)
 
 <br>
 
