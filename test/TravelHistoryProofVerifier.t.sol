@@ -3,8 +3,6 @@ pragma solidity ^0.8.17;
 import { TravelHistoryProofVerifier } from "../contracts/TravelHistoryProofVerifier.sol";
 import { UltraVerifier } from "../circuits/target/contract.sol";
 
-
-
 import "forge-std/console.sol";
 import { Test } from "forge-std/Test.sol";
 import { NoirHelper } from "foundry-noir-helper/NoirHelper.sol";
@@ -45,11 +43,11 @@ contract TravelHistoryProofVerifierTest is Test {
                   //.withInput("name", bytes32(uint256(name_bytes32)))                        /// @dev - Name of the traveler
                   //.withInput("passport_number", bytes32(uint256(passport_number_bytes32)))  /// @dev - Passport number of the traveler
                   .withInput("passport_number", bytes32(uint256(13003286)))                   /// @dev - Passport number of the traveler
-                  .withInput("country_code", uint256(1))    /// @dev - i.e). If a country that a traveler visit is USA, its country code is '1'
-                  .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
-                  .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
+                  .withInput("country_code", uint256(1))        /// @dev - i.e). If a country that a traveler visit is USA, its country code is '1'
+                  .withInput("enter_date", uint256(1614556800)) /// Mar 01 in 2021, 00:00:00 GMT
+                  .withInput("exit_date", uint256(1615636700)); /// Mar 13 in 2021, 11:58:20 GMT
 
-        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 3);
+        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 5);
         travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
     }
 
@@ -72,11 +70,11 @@ contract TravelHistoryProofVerifierTest is Test {
                   //.withInput("name", bytes32(uint256(name_bytes32)))                        /// @dev - Name of the traveler
                   //.withInput("passport_number", bytes32(uint256(passport_number_bytes32)))  /// @dev - Passport number of the traveler
                   .withInput("passport_number", bytes32(uint256(13003286)))                   /// @dev - Passport number of the traveler
-                  .withInput("country_code", uint256(31))
+                  .withInput("country_code", uint256(31))       // +31 is the country code of NL (Netherland)
                   .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
                   .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
 
-        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 3);
+        (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 5);
 
         /// @dev - This should fail because the public input is wrong
         bytes32[] memory fakePublicInputs = new bytes32[](3);
