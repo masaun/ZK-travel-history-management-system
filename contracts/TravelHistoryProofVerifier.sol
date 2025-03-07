@@ -9,7 +9,7 @@ contract TravelHistoryProofVerifier {
         verifier = _verifier;
     }
 
-    function verifyEqual(bytes calldata proof, bytes32[] calldata publicInput) public view returns (bool) {
+    function verifyTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInput) public view returns (bool) {
         bool proofResult = verifier.verify(proof, publicInput);
         require(proofResult, "Proof is not valid");
         return proofResult;

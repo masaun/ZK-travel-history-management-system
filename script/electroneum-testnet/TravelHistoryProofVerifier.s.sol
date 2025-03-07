@@ -35,7 +35,7 @@ contract TravelHistoryProofVerifierScript is Script {
         //correct[0] = bytes32(0x0000000000000000000000000000000000000000000000000000000000000001); // [Expect]: Reverted (= Invalid Proof)
         correct[1] = correct[0];
 
-        bool equal = travelHistoryProofVerifier.verifyEqual(proofBytes, correct);
+        bool equal = travelHistoryProofVerifier.verifyTravelHistoryProof(proofBytes, correct);
         console2.logBool(equal); /// [Log]: true
         return equal;
     }

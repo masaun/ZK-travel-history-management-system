@@ -27,7 +27,7 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
     function test_verifyProof() public {
         noirHelper.withInput("x", 1).withInput("y", 1).withInput("return", 1);
         (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_verifyProof", 2);
-        travelHistoryProofVerifier.verifyEqual(proof, publicInputs);
+        travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
     }
 
     function test_wrongProof() public {
@@ -35,7 +35,7 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
         noirHelper.withInput("x", 1).withInput("y", 5).withInput("return", 5);
         (bytes32[] memory publicInputs, bytes memory proof) = noirHelper.generateProof("test_wrongProof", 2);
         vm.expectRevert();
-        travelHistoryProofVerifier.verifyEqual(proof, publicInputs);
+        travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
     }
 
     // function test_all() public {
