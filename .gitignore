@@ -17,6 +17,7 @@ circuits/target/*
 circuits/Prover.toml
 circuits/Verifier.toml
 circuits/test_verifyProof.toml
+circuits/test_wrongProof.toml
 
 node_modules
 package-lock.json
