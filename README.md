@@ -15,7 +15,7 @@
 
   - 2/ When an international traveler would arrived at an airport in abroad and come to the checkpoint of the border control, the international traveler would submit the `travel history ZK proof`, which was generated when the step 1/, to the `TravelHistoryManager` contract (`TravelHistoryManager.sol`) - instead of submitting their passport to the border protection officer.
 
-  - 3/ The border protection officer can validate whether or not the travel history of the international traveler has no problem `without seeing` all date from the passport. Also, the international traveler can efficiently be approved `without revealing` all date by submitting the passport.
+  - 3/ The border protection officer can validate whether or not the travel history of the international traveler has no problem `without seeing` all data from the passport. Also, the international traveler can efficiently be approved `without revealing` all data by submitting the passport.
 
 <br>
 
@@ -36,6 +36,15 @@
 - `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
 - Smart Contract: Written in Solidity (Framework: Foundry)
 
+<br>
+
+## Deployed-smart contracts on `Electroneum` Testnet
+
+| Contract Name | Descripttion | Deployed-contract addresses on Electroneum Testnet |
+| ------------- |:-------------:| -----:|
+| UltraVerifier | The UltraPlonk Verifer contract (`./circuits/target/contract.sol`), which is generated based on ZK circuit in Noir (`./circuits/src/main.nr`). FYI: To generated this contract, the way of the [Noir's Solidity Verifier generation](https://noir-lang.org/docs/how_to/how-to-solidity-verifier) was used. | [0x0A95E7Fc5c292eCe47893E63A1380f08a061814A](https://blockexplorer.thesecurityteam.rocks/address/0x0A95E7Fc5c292eCe47893E63A1380f08a061814A) |
+| TravelHistoryProofVerifier | The smart contract that enable to validate whether or not a proof-submitted is valid. | [0xE82595069b66064345f8EeB162e3c4e2F4cED704](https://blockexplorer.thesecurityteam.rocks/address/0xE82595069b66064345f8EeB162e3c4e2F4cED704) |
+| TravelHistoryManager | The example smart contract that enable to validate whether or not a travel history proof-submitted is valid and validate whether or not the traveler breach the days limit of staying a country | [0xED169AF4E8d68d167B8c7bf66f241f30B8cA8083](https://blockexplorer.thesecurityteam.rocks/address/0xED169AF4E8d68d167B8c7bf66f241f30B8cA8083) |
 
 <br>
 
