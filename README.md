@@ -26,7 +26,7 @@
 
 - NOTE:
   - This project would focus on a `travel history`. In the future, other items should be added.
-  - In this project, the `Electroneum Testnet` would be used as a blockchain where the Smart Contracts for this project are deployed.
+  - In this project, the [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask) would be used as a blockchain where the Smart Contracts for this project are deployed.
 
 
 
@@ -38,7 +38,7 @@
 
 <br>
 
-## Deployed-smart contracts on `Electroneum` Testnet
+## Deployed-smart contracts on [`Electroneum` Testnet](https://developer.electroneum.com/electroneum-stack/metamask)
 
 | Contract Name | Descripttion | Deployed-contract addresses on Electroneum Testnet |
 | ------------- |:-------------:| -----:|
@@ -63,7 +63,7 @@ forge install 0xnonso/foundry-noir-helper
 
 <br>
 
-## ZK circuit - Generate (Prove) an Ultraplonk proof in Noir
+## ZK circuit - Generate (Prove) an Ultraplonk proof in [`Noir`](https://noir-lang.org/docs/)
 
 - 1/ Move to the `./circuits` directory:
 ```shell
