@@ -1,4 +1,4 @@
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.25;
 
 import { UltraVerifier } from "../circuits/target/contract.sol";
 
