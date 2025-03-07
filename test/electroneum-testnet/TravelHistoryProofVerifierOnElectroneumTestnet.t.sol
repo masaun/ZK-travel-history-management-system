@@ -38,6 +38,9 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
                   //.withInput("hash_path", hash_path)
                   .withInput("index", bytes32(uint256(0)))
                   .withInput("secret", bytes32(uint256(1))) /// @dev - [NOTE]: 'Field' type in Noir must be the form of this (= bytes32(uint256(XXX))).
+                  //.withInput("name", bytes32(uint256(name_bytes32)))                        /// @dev - Name of the traveler
+                  //.withInput("passport_number", bytes32(uint256(passport_number_bytes32)))  /// @dev - Passport number of the traveler
+                  .withInput("passport_number", bytes32(uint256(13003286)))                   /// @dev - Passport number of the traveler
                   .withInput("country_code", uint256(1))
                   .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
                   .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
@@ -62,6 +65,9 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
                   //.withInput("hash_path", hash_path)
                   .withInput("index", uint256(0))
                   .withInput("secret", uint256(1))
+                  //.withInput("name", bytes32(uint256(name_bytes32)))                        /// @dev - Name of the traveler
+                  //.withInput("passport_number", bytes32(uint256(passport_number_bytes32)))  /// @dev - Passport number of the traveler
+                  .withInput("passport_number", bytes32(uint256(13003286)))                   /// @dev - Passport number of the traveler
                   .withInput("country_code", uint256(31))
                   .withInput("enter_date", uint256(1614556800)) // Mar 01 in 2021, 00:00:00 GMT
                   .withInput("exit_date", uint256(1615636700)); // Mar 13 in 2021, 11:58:20 GMT
