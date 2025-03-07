@@ -1,17 +1,19 @@
 pragma solidity ^0.8.25;
 
 import { TravelHistoryProofVerifier } from "./TravelHistoryProofVerifier.sol";
+import { DataType } from "./dataType/DataType.sol";
 
-    /**
-     * @notice - The TravelHistoryManager contract
-     * @dev - The TravelHistoryManager contract can be customized by each authority of each country (i.e. A border control of each country)
-     */
+/**
+ * @notice - The TravelHistoryManager contract
+ * @dev - The TravelHistoryManager contract can be customized by each authority of each country (i.e. A border control of each country)
+ */
 contract TravelHistoryManager {
-    /// TOOD:
+    using DataType for DataType.PublicInput;
+
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
 
-    mapping(address => mapping(bytes => bytes32)) public publicInputsOfTravelHistoryProofs;
-    mapping(address => mapping(bytes => mapping(bytes32 => bool))) public travelHistoryProofRecords;
+    mapping(address => mapping(bytes => DataType.PublicInput)) public publicInputsOfTravelHistoryProofs;
+    mapping(address => mapping(bytes => bool)) public travelHistoryProofRecords;
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
@@ -22,34 +24,39 @@ contract TravelHistoryManager {
      * @notice - Record (Submit) a travel history proof on-chain /w publicInput.
      * @dev - The publicInputs validation should be customized by each authority of each country (i.e. A border control of each country)
      */
-    function recordTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInputs) public view returns (bool) {
+    function recordTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInputs) public returns (bool) {
         // Verify a travel history proof
         bool result = travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
         require(result, "Travel History Proof is not valid");
 
-        // PublicInputs veridations (NOTE: This can be customized by each authority of each country)
-        bytes32 nullifierHash = publicInputs[4];
-        nullifiers[nullifierHash] = true;
-
         // Record a travel history proof
-        travelHistoryProofRecords[msg.sender][proof][publicInputs] = true;
+        travelHistoryProofRecords[msg.sender][proof] = true;
 
         // Record a publicInput of a given travel history proof
-        publicInputsOfTravelHistoryProofs[msg.sender][proof] = publicInputs;
+        DataType.PublicInput memory publicInput;
+        publicInput.root = publicInputs[0];
+        publicInput.country_code = publicInputs[1];
+        publicInput.enter_date = publicInputs[2];
+        publicInput.exit_date = publicInputs[3];
+        publicInput.nullifierHash = publicInputs[4];
+        publicInputsOfTravelHistoryProofs[msg.sender][proof] = publicInput;
+
+        // PublicInputs veridations (NOTE: This can be customized by each authority of each country)
+        nullifiers[publicInput.nullifierHash] = true;
     }
 
     /**
      * @notice - Check whether or not a given proof (and its publicInputs) is recorded on-chain.
      */
-    function isTravelHistoryProofRecorded(address traveler, bytes calldata proof, bytes32[] calldata publicInputs) public view returns (bool) {
-        return travelHistoryProofRecords[traveler][proof][publicInputs];
+    function isTravelHistoryProofRecorded(address traveler, bytes calldata proof) public view returns (bool) {
+        return travelHistoryProofRecords[traveler][proof];
     }
 
     /**
      * @notice - Retrieve a publicInput of a given travel history proof from on-chain.
      */
-    function getPublicInputsOfTravelHistoryProof(address traveler, bytes calldata proof) public view returns (bytes32[] memory _publicInputs) {
-        return publicInputsOfTravelHistoryProof[traveler][proof];
+    function getPublicInputsOfTravelHistoryProof(address traveler, bytes calldata proof) public view returns (DataType.PublicInput memory _publicInput) {
+        return publicInputsOfTravelHistoryProofs[traveler][proof];
     }
 
     /**
@@ -57,17 +64,19 @@ contract TravelHistoryManager {
      * @notice - NOTE: Travelers can stay in the Schengen Area (which includes most EU countries) for up to 90 days within a 180-day period without a visa for tourism, business, or family visits.
      */
     function isTravelerBreachingDaysLimitOfStaying(address traveler, bytes calldata proof) public view returns (bool) {
-        bytes32[] memory publicInputs = new bytes32[](5); 
-        publicInputs = publicInputsOfTravelHistoryProof[traveler][proof];
-        bytes32 root = publicInputs[0];
-        bytes32 country_code = publicInputs[1];
-        bytes32 enter_date = publicInputs[2];
-        bytes32 exit_date = publicInputs[3];
-        bytes32 nullifierHash = publicInputs[4];
+        DataType.PublicInput memory publicInput;
+        publicInput = getPublicInputsOfTravelHistoryProof(traveler, proof);
 
-        // PublicInputs veridations (NOTE: This can be customized by each authority of each country)
+        bytes32 root = publicInput.root;
+        bytes32 country_code = publicInput.country_code;
+        bytes32 enter_date = publicInput.enter_date;
+        bytes32 exit_date = publicInput.exit_date;
+        bytes32 nullifierHash = publicInput.nullifierHash;
+
+        // @dev - PublicInputs veridations (NOTE: This can be customized by each authority of each country)
+        // @dev - Check whether or not a given traveler is breaching the 90 days limit of staying in Schengen Area.
         bool result;
-        if (exit_date - enter_date <= 90 days) {
+        if (uint256(exit_date) - uint256(enter_date) <= 90 days) {
             result = true;
         } else {
             result = false;

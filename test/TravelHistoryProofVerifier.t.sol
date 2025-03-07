@@ -3,8 +3,6 @@ pragma solidity ^0.8.17;
 import { TravelHistoryProofVerifier } from "../contracts/TravelHistoryProofVerifier.sol";
 import { UltraVerifier } from "../circuits/target/contract.sol";
 
-
-
 import "forge-std/console.sol";
 import { Test } from "forge-std/Test.sol";
 import { NoirHelper } from "foundry-noir-helper/NoirHelper.sol";
