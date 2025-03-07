@@ -105,37 +105,31 @@ sh ./script/electroneum-testnet/verify-script.sh
 
 <br>
 
-## Smart Contract - Test on Local Network / Sonic Testnet / Electroneum Testnet
+## Smart Contract - Test on Local Network / Electroneum Testnet
 
-- Run the test of the `Starter.t.sol`, which is the test file of the `Starter.sol` on Local Network.
+- Run the test of the `TravelHistoryProofVerifier.t.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Local Network.
 ```shell
-sh ./test/runningTest_1.sh
+sh ./test/runningTest_TravelHistoryProofVerifier.sh
 ```
 
 <br>
 
-- Run the test of the `StarterOnSonicTestnet.t.sol`, which is the test file of the `Starter.sol` on Sonic Testnet.
+- Run the test of the `TravelHistoryProofVerifierOnElectroneumTestnet.t.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Electroneum Testnet.
 ```shell
-sh ./test/runningTest_Sonic-Testnet.sh
-```
-
-<br>
-
-- Run the test of the `StarterOnElectroneumTestnet.t.sol`, which is the test file of the `Starter.sol` on Electroneum Testnet.
-```bash
-sh ./test/electroneum-testnet/runningTest_Electroneum-Testnet.sh
+sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneumTestnet.sh
 ```
 
 
-<br>
-
-
 
 <br>
 
-## Smart Contract - Deployment (on `Sonic Testnet`)
 
-- NOTE: Each Smart Contract has been deployed on `Sonic Testnet`. See the `"Deployed-smart contracts onSonic Testnet"` paragraph above in this README.
+
+<br>
+
+## Smart Contract - Deployment (on `Electroneum Testnet`)
+
+- NOTE: Each Smart Contract has been deployed on `Electroneum Testnet`. See the `"Deployed-smart contracts onSonic Testnet"` paragraph above in this README.
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
   - Then, you should add a private key of your deployer address to the `SONIC_BLAZE_TESTNET_PRIVATE_KEY` /or the `ELECTRONEUM_TESTNET_PRIVATE_KEY`.
