@@ -1,21 +1,41 @@
-# ZK Travel History in Noir
+# ZK Travel History Management System (built on [`Noir`](https://noir-lang.org/docs/))
 
-## Verify a travel history of a traveler
-- `TravelHistoryManager.sol` can be customized by each authority (i.e. A border control of each country)
+## Overview
 
+- In the international travel scean, an international traveler would submit and show their passport at the border control at the airport in order for a border protection officer to be able to check their travel history and so on. 
+  - At this point, the border protection officer would require the international traveler to submit and show their passport.
+    (At this point, If an interanational traveler had stayed in certain countries for a long time beyond the days limit of that these international traveler can stay the country, the border protection officer may refuse that the international traveler enter their country)
+
+  - However, some of information-written in the passport may not be needed for the border protection officer to check the international traveler's travel history and so on.
+
+<br>
+
+- This project ("ZK Travel History Management System") can solve this problem by using combination of the `ZK` (`Zero-Knowledge`) circuit and the Smart Contract on Blockchain. 
+  - 1/ Everytime an international traveler would depart from an airport in abroad, the international traveler would generate a `travel history ZK proof`, which includes information of a `country` they stayed and an `enter/exit date` of the country, via the ZK circuit.
+
+  - 2/ When an international traveler would arrived at an airport in abroad and come to the checkpoint of the border control, the international traveler would submit the `travel history ZK proof`, which was generated when the step 1/, to the `TravelHistoryManager` contract (`TravelHistoryManager.sol`) - instead of submitting their passport to the border protection officer.
+
+  - 3/ The border protection officer can validate whether or not the travel history of the international traveler has no problem `without seeing` all date from the passport. Also, the international traveler can efficiently be approved `without revealing` all date by submitting the passport.
+
+<br>
+
+- The `TravelHistoryManager` contract (`TravelHistoryManager.sol`) is supposed to be deployed by the border protection/control authority of each country.
+  - Since the requirement of the travel history is different depends on country, a border protection/control authority of an country is supposed to modify the validation in the `TravelHistoryManager` contract and deploy it on blockchain (`Electroneum Testnet`).
+
+  - i.e). In the example `TravelHistoryManager` contract (`TravelHistoryManager.sol`) deployed on `Electroneum Testnet`, the validation to check whether or not an international traveler stay in the Schengen Area beyond `90 days limit`.
+
+- NOTE:
+  - This project would focus on a `travel history`. In the future, other items should be added.
+  - In this project, the `Electroneum Testnet` would be used as a blockchain where the Smart Contracts for this project are deployed.
 
 
 
 <br>
 
-## Script /w NoirJS to generate a recursive proof
+## Tech Stack
+- `ZK circuit`: Written in [`Noir`](https://noir-lang.org/docs/) powered by [Aztec](https://aztec.network/)) 
+- Smart Contract: Written in Solidity (Framework: Foundry)
 
-- Running the script file of the `recursiveProofGeneration.ts` (via the `Hardhat` script)
-```bash
-cd script/travel-history/electroneum-testnet/recursive-proof_hardhat/scripts/recursive-proof-generation
-
-sh runningRecursiveProofGeneration.sh
-```
 
 <br>
 
@@ -47,20 +67,14 @@ cp Prover.example.toml Prover.toml
 ```
 
 - 3/ Write the `input data` should be written in the `Prover.toml`.
-  - [NOTE]: `"Boolean"` type data should be written in a string number (True: `"0"` / False: `"1"`).
-```toml
-return = ""
-x = ""
-y = ""
-```
 
 
-- 2/ Run the `build.sh` to run ZK circuit
+- 4/ Run the `build.sh` to run ZK circuit
 ```shell
 sh build.sh
 ```
 
-- 3/ The UltraVerifier contract (`contract.sol`) and `proof` and `vk` in Noir would be generated under the `./circuits/target`.
+- 5/ The UltraVerifier contract (`contract.sol`) and `proof` and `vk` in Noir would be generated under the `./circuits/target`.
 
 
 <br>
@@ -83,36 +97,6 @@ sh ./buildContract.sh
 
 <br>
 
-## Smart Contract - Script on Sonic Testnet / Electroneum Testnet
-
-- Run the script of the `Starter.s.sol`, which is the test file of the `Starter.sol` on Sonic Testnet.
-```shell
-sh ./script/starter-script.sh
-```
-
-<br>
-
-- Run the script of the `Starter.s.sol`, which is the test file of the `Starter.sol` on Electroneum Testnet.
-```shell
-sh ./script/electroneum-testnet/starter-script.sh
-```
-
-<br>
-
-- Run the script of the `Verify.s.sol`, which is the test file of the `UltraVerifier.sol` on Sonic Testnet.
-```shell
-sh ./script/verify-script.sh
-```
-
-<br>
-
-- Run the script of the `Verify.s.sol`, which is the test file of the `UltraVerifier.sol` on Electroneum Testnet.
-```shell
-sh ./script/electroneum-testnet/verify-script.sh
-```
-
-<br>
-
 ## Smart Contract - Test on Local Network / Electroneum Testnet
 
 - Run the test of the `TravelHistoryProofVerifier.t.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Local Network.
@@ -127,11 +111,16 @@ sh ./test/runningTest_TravelHistoryProofVerifier.sh
 sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneumTestnet.sh
 ```
 
-
+<br>
 
 <br>
 
+## Smart Contract - Script on `Electroneum Testnet`
 
+- Run the script of the `TravelHistoryProofVerifier.s.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Electroneum Testnet.
+```shell
+sh ./script/electroneum-testnet/runningScript_TravelHistoryProofVerifier.sh
+```
 
 <br>
 
