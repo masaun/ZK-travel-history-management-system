@@ -140,7 +140,7 @@ sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneu
 - NOTE: Each Smart Contract has been deployed on `Electroneum Testnet`. See the `"Deployed-smart contracts onSonic Testnet"` paragraph above in this README.
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
-  - Then, you should add a private key of your deployer address to the `SONIC_BLAZE_TESTNET_PRIVATE_KEY` /or the `ELECTRONEUM_TESTNET_PRIVATE_KEY`.
+  - Then, you should add a private key of your deployer address to the `ELECTRONEUM_TESTNET_PRIVATE_KEY`.
 ```shell
 cp .env.example .env
 ```
@@ -153,9 +153,10 @@ Or, directly executing the following command:
 ```bash
 /// [NOTE]: Execute the following at the root directory.
 
-forge script script/DeploymentAllContracts.s.sol --broadcast --private-key <SONIC_BLAZE_TESTNET_PRIVATE_KEY> \
+forge script script/DeploymentAllContracts.s.sol --broadcast --private-key <ELECTRONEUM_TESTNET_PRIVATE_KEY> \
     ./circuits/target/contract.sol:UltraVerifier \
-    ./Starter.sol:Starter --skip-simulation
+    ./TravelHistoryProofVerifier.sol:TravelHistoryProofVerifier \
+    ./TravelHistoryManager.sol:TravelHistoryManager --skip-simulation
 ```
 
 <br>
