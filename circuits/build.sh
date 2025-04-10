@@ -25,4 +25,10 @@ cp ./target/travel_history_vk.bin ./target/vk
 echo "Generate a Solidity Verifier contract"
 bb contract
 
+echo "Copy a Solidity Verifier contract-generated into the ./contracts/circuit/ultra-verifier directory"
+cp ./target/contract.sol ../contracts/circuit/ultra-verifier
+
+echo "Rename the contract.sol with the plonk_vk.sol in the ./contracts/circuit/ultra-verifier directory"
+mv ../contracts/circuit/ultra-verifier/contract.sol ../contracts/circuit/ultra-verifier/plonk_vk.sol
+
 echo "Done"
