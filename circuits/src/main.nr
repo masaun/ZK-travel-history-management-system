@@ -1,5 +1,5 @@
-use dep::std;
-mod tests;  // tests/mod.nr --> Commented out for passing the SC test (/w foundry-noir-helper)
+use dep::std;  
+mod tests;     // tests/mod.nr --> Commented out for passing the SC test (/w foundry-noir-helper)
 
 //#[recursive]
 fn main(

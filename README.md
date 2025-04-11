@@ -166,6 +166,22 @@ forge script script/electroneum-testnet/deployment/DeploymentAllContracts.s.sol 
 
 <br>
 
+## Smart Contract - Deployment (on `Base Sepolia Testnet`)
+
+- 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
+  - Then, you should add a private key of your deployer address to the `BASE_TESTNET_PRIVATE_KEY`.
+```shell
+cp .env.example .env
+```
+
+- 2/ Deploy all contracts on `Base Sepolia Testnet` by running the `script/base-testnet/deployment/DeploymentAllContracts.s.sol` 
+```bash
+sh ./script/base-testnet/deployment/deployment-on-base-testnet.sh
+```
+
+
+
+<br>
 
 ## References and Resources
 
