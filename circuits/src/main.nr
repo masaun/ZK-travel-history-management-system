@@ -14,7 +14,7 @@ fn main(
     exit_date: pub u64,          // @dev - UNIX timestamp
 ) -> pub Field {
     let note_commitment = std::hash::pedersen_hash([secret]);
-    let nullifier = std::hash::pedersen_hash([root, secret, root, secret]);
+    let nullifier = std::hash::pedersen_hash([root, secret]);
 
     // Constraint: root == check_root
     let check_root = std::merkle::compute_merkle_root(note_commitment, index, hash_path);
