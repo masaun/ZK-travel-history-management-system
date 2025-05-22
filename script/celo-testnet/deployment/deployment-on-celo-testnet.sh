@@ -14,7 +14,7 @@ forge script script/celo-testnet/deployment/DeploymentAllContracts.s.sol \
 # [NOTE - Adding the "--legacy" option]: Due to this error - Error: Failed to estimate EIP1559 fees. This chain might not support EIP1559, try adding --legacy to your command.
 
 echo "Verify the deployed-smart contracts on Celo Alfajores Testnet Explorer..."
-forge script script/base-testnet/deployment/DeploymentAllContracts.s.sol \
+forge script script/celo-testnet/deployment/DeploymentAllContracts.s.sol \
     --rpc-url ${CELO_TESTNET_RPC} \
     --chain-id ${CELO_TESTNET_CHAIN_ID} \
     --private-key ${CELO_TESTNET_PRIVATE_KEY} \
