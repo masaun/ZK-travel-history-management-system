@@ -18,6 +18,7 @@ forge-std = "lib/foundry-noir-helper/lib/forge-std/src/"
 #sepolia = "${SEPOLIA_RPC}"
 electroneum_testnet = "${ELECTRONEUM_TESTNET_RPC}"
 base_testnet = "${BASE_TESTNET_RPC}"
+celo_testnet = "${CELO_TESTNET_RPC}"
 
 [etherscan]
 #sepolia = { key = "${SEPOLIA_PRIVATE_KEY}" }

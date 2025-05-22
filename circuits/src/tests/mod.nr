@@ -29,7 +29,7 @@ mod tests {
         );
 
         let note_commitment = std::hash::pedersen_hash([secret]);
-        let _nullifier = std::hash::pedersen_hash([root, secret, root, secret]);
+        let _nullifier = std::hash::pedersen_hash([root, secret]);
 
         // Constraint check
         assert(nullifier == _nullifier, "Invalid nullifier");
