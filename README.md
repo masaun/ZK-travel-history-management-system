@@ -179,6 +179,20 @@ cp .env.example .env
 sh ./script/base-testnet/deployment/deployment-on-base-testnet.sh
 ```
 
+<br>
+
+## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
+
+- 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
+  - Then, you should add a private key of your deployer address to the `CELO_TESTNET_PRIVATE_KEY`.
+```shell
+cp .env.example .env
+```
+
+- 2/ Deploy all contracts on `Celo Sepolia Testnet` by running the `script/celo-testnet/deployment/DeploymentAllContracts.s.sol` 
+```bash
+sh ./script/celo-testnet/deployment/deployment-on-celo-testnet.sh
+```
 
 
 <br>
