@@ -25,7 +25,7 @@ contract DeploymentAllContracts is Script {
     function setUp() public {}
 
     function run() public {
-        vm.createSelectFork("BASE_MAINNET");
+        vm.createSelectFork("base_mainnet");
         uint256 deployerPrivateKey = vm.envUint("BASE_MAINNET_PRIVATE_KEY");
         //uint256 deployerPrivateKey = vm.envUint("LOCALHOST_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
@@ -37,8 +37,8 @@ contract DeploymentAllContracts is Script {
 
         vm.stopBroadcast();
 
-        /// @dev - Logs of the deployed-contracts on Base Sepolia Testnet
-        console.logString("Logs of the deployed-contracts on Base Sepolia Testnet");
+        /// @dev - Logs of the deployed-contracts on Base Mainnet
+        console.logString("Logs of the deployed-contracts on Base Mainnet");
         console.logString("\n");
         //console.log("%s: %s", "RewardPoolFactory SC", address(rewardPoolFactory));
         //console.logString("\n");
