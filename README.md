@@ -191,7 +191,7 @@ cp .env.example .env
 
 - 2/ Deploy all contracts on `Base Mainnet` by running the `script/base-mainnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
-sh ./script/base-testnet/deployment/deployment-on-base-mainnet.sh
+sh ./script/base-mainnet/deployment/deployment-on-base-mainnet.sh
 ```
 
 <br>
