@@ -31,7 +31,7 @@ contract DeploymentAllContracts is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         //vm.startBroadcast();
-        verifier = new UltraVerifier();
+        verifier = new HonkVerifier();
         travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
         travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
 
