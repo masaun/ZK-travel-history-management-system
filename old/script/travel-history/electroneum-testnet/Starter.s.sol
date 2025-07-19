@@ -6,7 +6,7 @@ import "../../contracts/Starter.sol";
 
 contract StarterScript is Script {
     Starter public starter;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
 
     function setUp() public {}
 
@@ -18,8 +18,8 @@ contract StarterScript is Script {
 
         address ULTRA_VERIFIER = vm.envAddress("ULTRAVERIFER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
         address STARTER = vm.envAddress("STARTER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
-        verifier = UltraVerifier(ULTRA_VERIFIER);
-        //verifier = new UltraVerifier();
+        verifier = HonkVerifier(ULTRA_VERIFIER);
+        //verifier = new HonkVerifier();
         starter = Starter(STARTER);
         //starter = new Starter(verifier);
     }

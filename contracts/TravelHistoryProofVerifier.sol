@@ -2,7 +2,7 @@ pragma solidity ^0.8.25;
 
 import { HonkVerifier } from "./circuit/ultra-verifier/plonk_vk.sol";
 //import { UltraVerifier } from "./circuit/ultra-verifier/plonk_vk.sol";
-//import { UltraVerifier } from "../circuits/target/contract.sol";
+//import { HonkVerifier } from "../circuits/target/Verifier.sol";
 
 
 /**

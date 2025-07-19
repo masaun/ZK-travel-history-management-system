@@ -1,14 +1,14 @@
 pragma solidity ^0.8.17;
 
 import { Script } from "forge-std/Script.sol";
-import { UltraVerifier } from "../../circuits/target/contract.sol";
+import { HonkVerifier } from "../../contracts/circuit/ultra-verifier/plonk_vk.sol";
 import { TravelHistoryProofVerifier } from "../../contracts/TravelHistoryProofVerifier.sol";
 
 import { console2 } from "forge-std/console2.sol";
 
 contract TravelHistoryProofVerifierScript is Script {
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
 
     function setUp() public {}
 
@@ -20,8 +20,8 @@ contract TravelHistoryProofVerifierScript is Script {
 
         address ULTRA_VERIFIER = vm.envAddress("ULTRAVERIFER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
         address TRAVEL_HISTORY_PROOF_VERIFIER = vm.envAddress("TRAVEL_HISTORY_PROOF_VERIFIER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
-        verifier = UltraVerifier(ULTRA_VERIFIER);
-        //verifier = new UltraVerifier();
+        verifier = HonkVerifier(ULTRA_VERIFIER);
+        //verifier = new HonkVerifier();
         travelHistoryProofVerifier = TravelHistoryProofVerifier(TRAVEL_HISTORY_PROOF_VERIFIER);
         //travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
 

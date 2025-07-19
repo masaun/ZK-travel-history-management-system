@@ -2,7 +2,7 @@ pragma solidity ^0.8.17;
 
 import { TravelHistoryManager } from "../contracts/TravelHistoryManager.sol";
 import { TravelHistoryProofVerifier } from "../contracts/TravelHistoryProofVerifier.sol";
-import { UltraVerifier } from "../circuits/target/contract.sol";
+import { HonkVerifier } from "../contracts/circuit/ultra-verifier/plonk_vk.sol";
 
 import "forge-std/console.sol";
 import { Test } from "forge-std/Test.sol";
@@ -12,12 +12,12 @@ import { NoirHelper } from "foundry-noir-helper/NoirHelper.sol";
 contract TravelHistoryManagerTest is Test {
     TravelHistoryManager public travelHistoryManager;
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     NoirHelper public noirHelper;
 
     function setUp() public {
         noirHelper = new NoirHelper();
-        verifier = new UltraVerifier();
+        verifier = new HonkVerifier();
         travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
         travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
     }

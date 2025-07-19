@@ -4,7 +4,7 @@ import "forge-std/Script.sol";
 
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
 import { HonkVerifier } from "../../../contracts/circuit/ultra-verifier/plonk_vk.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
-//import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
+//import { HonkVerifier } from "../../../circuits/target/Verifier.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 import { TravelHistoryProofVerifier } from "../../../contracts/TravelHistoryProofVerifier.sol";
 import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.sol";
 

@@ -4,7 +4,7 @@ import "forge-std/Script.sol";
 
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
 import { HonkVerifier } from "../../../contracts/circuit/ultra-verifier/plonk_vk.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
-//import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
+//import { HonkVerifier } from "../../../circuits/target/Verifier.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 import { TravelHistoryProofVerifier } from "../../../contracts/TravelHistoryProofVerifier.sol";
 import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.sol";
 
@@ -12,7 +12,7 @@ import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.so
 
 
 /**
- * @notice - Deployment script to deploy all SCs at once - on Sonic Blaze Testnet
+ * @notice - Deployment script to deploy all SCs at once - on Base Mainnet
  * @dev - [CLI]: Using the CLI, which is written in the bottom of this file, to deploy all SCs
  */
 contract DeploymentAllContracts is Script {
@@ -40,17 +40,17 @@ contract DeploymentAllContracts is Script {
         /// @dev - Logs of the deployed-contracts on Base Mainnet
         console.logString("Logs of the deployed-contracts on Base Mainnet");
         console.logString("\n");
-        //console.log("%s: %s", "RewardPoolFactory SC", address(rewardPoolFactory));
-        //console.logString("\n");
+        console.log("HonkVerifier:", address(verifier));
+        console.log("TravelHistoryProofVerifier:", address(travelHistoryProofVerifier));
+        console.log("TravelHistoryManager:", address(travelHistoryManager));
+        console.logString("\n");
     }
 }
 
 
 
 /////////////////////////////////////////
-/// CLI (icl. SC sources) - New version
+/// CLI for Base Mainnet Deployment
 //////////////////////////////////////
 
-// forge script script/DeploymentAllContracts.s.sol --broadcast --private-key <SONIC_BLAZE_TESTNET_PRIVATE_KEY> \
-//     ./circuits/target/contract.sol:UltraVerifier \
-//     ./Starter.sol:Starter --skip-simulation
+// forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol --broadcast --rpc-url $BASE_MAINNET_RPC --private-key $BASE_MAINNET_PRIVATE_KEY --verify
