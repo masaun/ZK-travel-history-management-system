@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 import "forge-std/Script.sol";
 
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
-import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
+import { HonkVerifier } from "../../../circuits/target/Verifier.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 import { Starter } from "../../../contracts/Starter.sol";
 
 //import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -16,7 +16,7 @@ import { Starter } from "../../../contracts/Starter.sol";
 contract DeploymentAllContracts is Script {
     //using SafeERC20 for MockRewardToken;
 
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     Starter public starter;
 
     function setUp() public {}
@@ -28,7 +28,7 @@ contract DeploymentAllContracts is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         //vm.startBroadcast();
-        verifier = new UltraVerifier();
+        verifier = new HonkVerifier();
         starter = new Starter(verifier);
 
         vm.stopBroadcast();

@@ -1,7 +1,7 @@
 pragma solidity ^0.8.17;
 
 import { TravelHistoryProofVerifier } from "../../contracts/TravelHistoryProofVerifier.sol";
-import { UltraVerifier } from "../../circuits/target/contract.sol";
+import { HonkVerifier } from "../../contracts/circuit/ultra-verifier/plonk_vk.sol";
 import "forge-std/console.sol";
 
 import { Test } from "forge-std/Test.sol";
@@ -10,7 +10,7 @@ import { NoirHelper } from "foundry-noir-helper/NoirHelper.sol";
 
 contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     NoirHelper public noirHelper;
 
     function setUp() public {
@@ -18,8 +18,8 @@ contract TravelHistoryProofVerifierOnElectroneumTestnetTest is Test {
         
         address ULTRA_VERIFIER = vm.envAddress("ULTRAVERIFER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
         address TRAVEL_HISTORY_PROOF_VERIFIER = vm.envAddress("TRAVEL_HISTORY_PROOF_VERIFIER_CONTRACT_ADDRESS_ON_ELECTRONEUM_TESTNET");
-        verifier = UltraVerifier(ULTRA_VERIFIER);
-        //verifier = new UltraVerifier();
+        verifier = HonkVerifier(ULTRA_VERIFIER);
+        //verifier = new HonkVerifier();
         travelHistoryProofVerifier = TravelHistoryProofVerifier(TRAVEL_HISTORY_PROOF_VERIFIER);
         //travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
     }

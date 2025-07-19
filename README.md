@@ -181,6 +181,21 @@ sh ./script/base-testnet/deployment/deployment-on-base-testnet.sh
 
 <br>
 
+## Smart Contract - Deployment (on `Base Mainnet`)
+
+- 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
+  - Then, you should add a private key of your deployer address to the `BASE_MAINNET_PRIVATE_KEY`.
+```shell
+cp .env.example .env
+```
+
+- 2/ Deploy all contracts on `Base Mainnet` by running the `script/base-mainnet/deployment/DeploymentAllContracts.s.sol` 
+```bash
+sh ./script/base-mainnet/deployment/deployment-on-base-mainnet.sh
+```
+
+<br>
+
 ## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.

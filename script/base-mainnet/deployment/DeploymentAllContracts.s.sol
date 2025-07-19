@@ -12,7 +12,7 @@ import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.so
 
 
 /**
- * @notice - Deployment script to deploy all SCs at once - on Sonic Blaze Testnet
+ * @notice - Deployment script to deploy all SCs at once - on Base Mainnet
  * @dev - [CLI]: Using the CLI, which is written in the bottom of this file, to deploy all SCs
  */
 contract DeploymentAllContracts is Script {
@@ -25,9 +25,13 @@ contract DeploymentAllContracts is Script {
     function setUp() public {}
 
     function run() public {
-        vm.createSelectFork("base_testnet");
-        uint256 deployerPrivateKey = vm.envUint("BASE_TESTNET_PRIVATE_KEY");
+        vm.createSelectFork("base_mainnet");
+        uint256 deployerPrivateKey = vm.envUint("BASE_MAINNET_PRIVATE_KEY");
         //uint256 deployerPrivateKey = vm.envUint("LOCALHOST_PRIVATE_KEY");
+        
+        // Set gas configuration for Base mainnet
+        vm.txGasPrice(0.01 gwei); // Base mainnet typically has very low gas costs
+        
         vm.startBroadcast(deployerPrivateKey);
 
         //vm.startBroadcast();
@@ -37,20 +41,20 @@ contract DeploymentAllContracts is Script {
 
         vm.stopBroadcast();
 
-        /// @dev - Logs of the deployed-contracts on Base Sepolia Testnet
-        console.logString("Logs of the deployed-contracts on Base Sepolia Testnet");
+        /// @dev - Logs of the deployed-contracts on Base Mainnet
+        console.logString("Logs of the deployed-contracts on Base Mainnet");
         console.logString("\n");
-        //console.log("%s: %s", "RewardPoolFactory SC", address(rewardPoolFactory));
-        //console.logString("\n");
+        console.log("HonkVerifier:", address(verifier));
+        console.log("TravelHistoryProofVerifier:", address(travelHistoryProofVerifier));
+        console.log("TravelHistoryManager:", address(travelHistoryManager));
+        console.logString("\n");
     }
 }
 
 
 
 /////////////////////////////////////////
-/// CLI (icl. SC sources) - New version
+/// CLI for Base Mainnet Deployment
 //////////////////////////////////////
 
-// forge script script/DeploymentAllContracts.s.sol --broadcast --private-key <SONIC_BLAZE_TESTNET_PRIVATE_KEY> \
-//     ./circuits/target/contract.sol:UltraVerifier \
-//     ./Starter.sol:Starter --skip-simulation
+// forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol --broadcast --rpc-url $BASE_MAINNET_RPC --private-key $BASE_MAINNET_PRIVATE_KEY --gas-limit 10000000 --verify

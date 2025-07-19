@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 import "../circuits/target/contract.sol";
 
 contract Starter {
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
 
     constructor(UltraVerifier _verifier) {
         verifier = _verifier;
