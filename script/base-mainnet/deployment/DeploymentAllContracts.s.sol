@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 import "forge-std/Script.sol";
 
 /// @dev - ZK (Ultraplonk) circuit, which is generated in Noir.
-import { UltraVerifier } from "../../../contracts/circuit/ultra-verifier/plonk_vk.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
+import { HonkVerifier } from "../../../contracts/circuit/ultra-verifier/plonk_vk.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 //import { UltraVerifier } from "../../../circuits/target/contract.sol"; /// @dev - Deployed-Verifier SC, which was generated based on the main.nr
 import { TravelHistoryProofVerifier } from "../../../contracts/TravelHistoryProofVerifier.sol";
 import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.sol";
@@ -18,7 +18,7 @@ import { TravelHistoryManager } from "../../../contracts/TravelHistoryManager.so
 contract DeploymentAllContracts is Script {
     //using SafeERC20 for MockRewardToken;
 
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     TravelHistoryProofVerifier public travelHistoryProofVerifier;
     TravelHistoryManager public travelHistoryManager;
 
