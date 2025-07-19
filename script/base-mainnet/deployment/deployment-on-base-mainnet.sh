@@ -20,6 +20,6 @@ forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
     --private-key ${BASE_MAINNET_PRIVATE_KEY} \
     --resume \
     --verify \
-    --verifier etherscan \
+    --verifier ${BASE_MAINNET_BASESCAN_VERIFIER} \
     --verifier-url ${BASE_MAINNET_BASESCAN_VERIFIER_URL} \
     --etherscan-api-key ${BASESCAN_API_KEY} \
