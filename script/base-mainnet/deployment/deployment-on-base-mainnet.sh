@@ -1,7 +1,7 @@
 echo "Load the environment variables from the .env file..."
 . ./.env
 
-echo "Deploying the UltraVerifier and TravelHistoryProofVerifier contract on Base Sepolia Testnet..."
+echo "Deploying the HonkVerifier and TravelHistoryProofVerifier contract on Base Mainnet..."
 forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
     --broadcast \
     --rpc-url ${BASE_MAINNET_RPC} \
@@ -13,7 +13,7 @@ forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
 
 # [NOTE - Adding the "--legacy" option]: Due to this error - Error: Failed to estimate EIP1559 fees. This chain might not support EIP1559, try adding --legacy to your command.
 
-echo "Verify the deployed-smart contracts on Base Sepolia Testnet Explorer..."
+echo "Verify the deployed-smart contracts on Base Mainnet Explorer..."
 forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
     --rpc-url ${BASE_MAINNET_RPC} \
     --chain-id ${BASE_MAINNET_CHAIN_ID} \
@@ -21,5 +21,5 @@ forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
     --resume \
     --verify \
     --verifier etherscan \
-    --verifier-url https://api-sepolia.basescan.org/api \
+    --verifier-url ${BASE_MAINNET_BASESCAN_VERIFIER_URL} \
     --etherscan-api-key ${BASESCAN_API_KEY} \
