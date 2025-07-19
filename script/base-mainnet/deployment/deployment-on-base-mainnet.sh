@@ -9,6 +9,9 @@ forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol \
     --private-key ${BASE_MAINNET_PRIVATE_KEY} \
     --gas-limit ${BASE_MAINNET_GAS_LIMIT} \
     --gas-price ${BASE_MAINNET_GAS_PRICE} \
+    ./contracts/circuit/ultra-verifier/plonk_vk.sol:UltraVerifier \
+    ./TravelHistoryProofVerifier.sol:TravelHistoryProofVerifier \
+    ./TravelHistoryManager.sol:TravelHistoryManager --skip-simulation --legacy
 
 # [NOTE - Adding the "--legacy" option]: Due to this error - Error: Failed to estimate EIP1559 fees. This chain might not support EIP1559, try adding --legacy to your command.
 
