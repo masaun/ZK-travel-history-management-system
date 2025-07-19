@@ -28,6 +28,10 @@ contract DeploymentAllContracts is Script {
         vm.createSelectFork("base_mainnet");
         uint256 deployerPrivateKey = vm.envUint("BASE_MAINNET_PRIVATE_KEY");
         //uint256 deployerPrivateKey = vm.envUint("LOCALHOST_PRIVATE_KEY");
+        
+        // Set gas configuration for Base mainnet
+        vm.txGasPrice(2 gwei); // Set a reasonable gas price for Base
+        
         vm.startBroadcast(deployerPrivateKey);
 
         //vm.startBroadcast();
@@ -53,4 +57,4 @@ contract DeploymentAllContracts is Script {
 /// CLI for Base Mainnet Deployment
 //////////////////////////////////////
 
-// forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol --broadcast --rpc-url $BASE_MAINNET_RPC --private-key $BASE_MAINNET_PRIVATE_KEY --verify
+// forge script script/base-mainnet/deployment/DeploymentAllContracts.s.sol --broadcast --rpc-url $BASE_MAINNET_RPC --private-key $BASE_MAINNET_PRIVATE_KEY --gas-limit 3000000 --verify
