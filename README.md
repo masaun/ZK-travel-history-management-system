@@ -193,6 +193,11 @@ cp .env.example .env
 ```bash
 sh ./script/base-mainnet/deployment/deployment-on-base-mainnet.sh
 ```
++
+SC verification via BlockScount is here:
+```bash
+sh ./script/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
+```
 
 <br>
 
