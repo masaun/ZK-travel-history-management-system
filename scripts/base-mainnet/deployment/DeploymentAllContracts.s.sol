@@ -36,8 +36,8 @@ contract DeploymentAllContracts is Script {
 
         //vm.startBroadcast();
         verifier = new HonkVerifier();
-        //travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
-        //travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
+        travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
+        travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
 
         vm.stopBroadcast();
 
@@ -45,8 +45,8 @@ contract DeploymentAllContracts is Script {
         console.logString("Logs of the deployed-contracts on Base Mainnet");
         console.logString("\n");
         console.log("HonkVerifier:", address(verifier));
-        //console.log("TravelHistoryProofVerifier:", address(travelHistoryProofVerifier));
-        //console.log("TravelHistoryManager:", address(travelHistoryManager));
+        console.log("TravelHistoryProofVerifier:", address(travelHistoryProofVerifier));
+        console.log("TravelHistoryManager:", address(travelHistoryManager));
         console.logString("\n");
     }
 }
