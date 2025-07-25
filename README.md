@@ -150,7 +150,7 @@ cp .env.example .env
 
 - 2/ Deploy all contracts on `Electroneum Testnet` by running the `script/electroneum-testnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
-sh ./script/electroneum-testnet/deployment/deployment-on-electroneum-testnet.sh
+sh ./scripts/electroneum-testnet/deployment/deployment-on-electroneum-testnet.sh
 ```
 Or, directly executing the following command:
 ```bash
@@ -176,7 +176,7 @@ cp .env.example .env
 
 - 2/ Deploy all contracts on `Base Sepolia Testnet` by running the `script/base-testnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
-sh ./script/base-testnet/deployment/deployment-on-base-testnet.sh
+sh ./scripts/base-testnet/deployment/deployment-on-base-testnet.sh
 ```
 
 <br>
@@ -191,12 +191,12 @@ cp .env.example .env
 
 - 2/ Deploy all contracts on `Base Mainnet` by running the `script/base-mainnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
-sh ./script/base-mainnet/deployment/deployment-on-base-mainnet.sh
+sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet.sh
 ```
 +
-SC verification via BlockScount is here:
+SC verification via `BlockScount` is here:
 ```bash
-sh ./script/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
+sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
 ```
 
 <br>
