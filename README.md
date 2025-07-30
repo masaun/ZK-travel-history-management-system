@@ -199,6 +199,33 @@ SC verification via `BlockScount` is here:
 sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
 ```
 
+
+<br>
+
+## Deployment on Celo mainnet (`Each SC`)
+
+- Run the `DeploymentForHonkVerifier_celoscan.s.sol` to deploy the  `HonkVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_HonkVerifier_via_celoscan.sh
+```
+
+<br>
+
+- Run the `DeploymentForTravelHistoryProofVerifier_celoscan.s.sol` to deploy the  `TravelHistoryProofVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier_via_celoscan.sh
+```
+
+<br>
+
+- Run the `DeploymentForTravelHistoryManager_celoscan.s.sol` to deploy the  `TravelHistoryManager` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryManager_via_celoscan.sh
+```
+
 <br>
 
 ## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
