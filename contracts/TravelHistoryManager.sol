@@ -37,8 +37,8 @@ contract TravelHistoryManager {
         bool result = travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
         require(result, "Travel History Proof is not valid");
 
-        // Double spending check for a given proof 
-        require(travelHistoryProofRecords[msg.sender][proof] == false, "A given proof is already recorded on-chain, which means this given proof is double-spending");
+        // @dev - Double spending check for a given proof 
+        //require(travelHistoryProofRecords[msg.sender][proof] == false, "A given proof is already recorded on-chain, which means this given proof is double-spending");
 
         // Record a travel history proof
         travelHistoryProofRecords[msg.sender][proof] = true;

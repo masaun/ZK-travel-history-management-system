@@ -6,29 +6,30 @@ import "forge-std/Script.sol";
 import { HonkVerifier } from "../../../contracts/circuit/ultra-verifier/plonk_vk.sol";
 
 /**
- * @notice - Deployment script to deploy all SCs at once - on Celo Mainnet
+ * @notice - Deployment script to deploy all SCs at once - on BASE Mainnet
  */
-contract DeploymentForHonkVerifier_celoscan is Script {
+contract DeploymentForHonkVerifier_basescan is Script {
     HonkVerifier public verifier;
 
     function setUp() public {}
 
     function run() public {
-        //vm.createSelectFork('celo-testnet'); // [NOTE]: Commmentout due to the error of the "Multi chain deployment does not support library linking at the moment"
 
-        uint256 deployerPrivateKey = vm.envUint("CELO_MAINNET_PRIVATE_KEY");
+        vm.createSelectFork('base_mainnet'); // [NOTE]: foundry.toml - BASE Mainnet RPC URL
+
+        uint256 deployerPrivateKey = vm.envUint("BASE_MAINNET_PRIVATE_KEY");
         //uint256 deployerPrivateKey = vm.envUint("LOCALHOST_PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
         //vm.startBroadcast();
 
         /// @dev - Deploy SCs
-        //verifier = UltraVerifier(vm.envAddress("HONK_VERIFIER_ON_CELO_MAINNET"));
+        //verifier = UltraVerifier(vm.envAddress("HONK_VERIFIER_ON_BASE_MAINNET"));
         verifier = new HonkVerifier();
 
         vm.stopBroadcast();
 
-        /// @dev - Logs of the deployed-contracts on Celo Mainnet
-        console.logString("Logs of the deployed-contracts on Celo Mainnet");
+        /// @dev - Logs of the deployed-contracts on BASE Mainnet
+        console.logString("Logs of the deployed-contracts on BASE Mainnet");
         console.logString("\n");
         console.log("%s: %s", "UltraVerifier SC", address(verifier));
     }

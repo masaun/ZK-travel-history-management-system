@@ -29,6 +29,7 @@ electroneum_testnet = "${ELECTRONEUM_TESTNET_RPC}"
 base_testnet = "${BASE_TESTNET_RPC}"
 base_mainnet = "${BASE_MAINNET_RPC}"
 celo_testnet = "${CELO_TESTNET_RPC}"
+celo_mainnet = "${CELO_MAINNET_RPC}"
 
 [etherscan]
 #sepolia = { key = "${SEPOLIA_PRIVATE_KEY}" }
