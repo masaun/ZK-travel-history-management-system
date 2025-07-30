@@ -6,6 +6,10 @@ libs = ["lib"]
 fs_permissions = [{ access = "read-write", path = "./"},{ access = "read-write", path = "/tmp/"}]
 ffi = true
 
+# Solidity compiler configuration
+solc_version = "0.8.28"
+evm_version = "paris"
+
 optimizer = true
 optimizer_runs = 200
 
