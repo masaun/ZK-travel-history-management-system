@@ -199,6 +199,33 @@ SC verification via `BlockScount` is here:
 sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
 ```
 
+
+<br>
+
+## Deployment on Celo mainnet (`Each SC`)
+
+- Run the `DeploymentForHonkVerifier_celoscan.s.sol` to deploy the  `HonkVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_HonkVerifier_via_celoscan.sh
+```
+
+<br>
+
+- Run the `DeploymentForTravelHistoryProofVerifier_celoscan.s.sol` to deploy the  `TravelHistoryProofVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier_via_celoscan.sh
+```
+
+<br>
+
+- Run the `DeploymentForTravelHistoryManager_celoscan.s.sol` to deploy the  `TravelHistoryManager` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryManager_via_celoscan.sh
+```
+
 <br>
 
 ## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
@@ -212,6 +239,15 @@ cp .env.example .env
 - 2/ Deploy all contracts on `Celo Sepolia Testnet` by running the `script/celo-testnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
 sh ./script/celo-testnet/deployment/deployment-on-celo-testnet.sh
+```
+
+<br>
+
+## Smart Contract - Verification on Celo mainnet (`Each SC`)
+- Run for verifying the  `All` contract on Celo mainnet:
+  - NOTE: The smart contract is verified in `BlockScout` of Celo Mainnet (https://celo.blockscout.com)
+```bash
+sh ./scripts/celo-mainnet/verification/verificationScript_AllContracts_via_blockscout.sh
 ```
 
 
