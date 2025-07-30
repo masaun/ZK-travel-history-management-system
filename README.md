@@ -191,12 +191,12 @@ cp .env.example .env
 
 - 2/ Deploy all contracts on `Base Mainnet` by running the `script/base-mainnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
-sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet.sh
+sh ./scripts/base-mainnet/deployment/deploymentScript_AllContracts_via_basescan.sh
 ```
 +
 SC verification via `BlockScount` is here:
 ```bash
-sh ./scripts/base-mainnet/deployment/deployment-on-base-mainnet_blockscout.sh
+sh ./scripts/base-mainnet/deployment/deploymentScript_AllContracts_via_blockscout.sh
 ```
 
 
