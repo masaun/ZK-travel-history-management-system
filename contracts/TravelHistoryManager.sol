@@ -16,8 +16,13 @@ contract TravelHistoryManager {
     mapping(address => mapping(bytes => bool)) public travelHistoryProofRecords;
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
+    mapping(address => bool) public travelers;
+
+    string public version;
+
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
+        version = "0.1.1";
     }
 
     /**
@@ -25,12 +30,18 @@ contract TravelHistoryManager {
      * @dev - The publicInputs validation should be customized by each authority of each country (i.e. A border control of each country)
      */
     function recordTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInputs) public returns (bool) {
+        // Check whether the sender is registered as a traveler or not
+        require(travelers[msg.sender], "You are not registered as a traveler");
+
         // Verify a travel history proof
         bool result = travelHistoryProofVerifier.verifyTravelHistoryProof(proof, publicInputs);
         require(result, "Travel History Proof is not valid");
 
         // Record a travel history proof
         travelHistoryProofRecords[msg.sender][proof] = true;
+
+        // Check the number of public inputs
+        require(publicInputs.length == 5, "Invalid number of public inputs");
 
         // Record a publicInput of a given travel history proof
         DataType.PublicInput memory publicInput;
@@ -83,6 +94,28 @@ contract TravelHistoryManager {
         }
 
         return result;
+    }
+
+    /**
+     * @notice - Register as a traveler
+     */
+    function registerAsTraveler() public returns (bool) {
+        require(!travelers[msg.sender], "You have already registered as a traveler");
+        travelers[msg.sender] = true;
+        return true;
+    }
+
+    function deregisterAsTraveler() public returns (bool) {
+        require(travelers[msg.sender], "You are not registered as a traveler");
+        travelers[msg.sender] = false;
+        return true;
+    }
+
+    /**
+     * @notice - This function is a test function
+     */
+    function poke() public returns (bool) {
+        return true;
     }
 
 }
