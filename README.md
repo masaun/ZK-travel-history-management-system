@@ -183,20 +183,26 @@ sh ./scripts/base-testnet/deployment/deployment-on-base-testnet.sh
 
 ## Smart Contract - Deployment (on `Base Mainnet`)
 
-- 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
-  - Then, you should add a private key of your deployer address to the `BASE_MAINNET_PRIVATE_KEY`.
-```shell
-cp .env.example .env
+- Run the `DeploymentForHonkVerifier_basescan.s.sol` to deploy the  `HonkVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `BaseScan` of BASE Mainnet (https://basescan.io))
+```bash
+sh ./scripts/base-mainnet/deployment/deploymentScript_HonkVerifier_via_basescan.sh
 ```
 
-- 2/ Deploy all contracts on `Base Mainnet` by running the `script/base-mainnet/deployment/DeploymentAllContracts.s.sol` 
+<br>
+
+- Run the `DeploymentForTravelHistoryProofVerifier_basescan.s.sol` to deploy the  `TravelHistoryProofVerifier` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `BaseScan` of BASE Mainnet (https://basescan.io)
 ```bash
-sh ./scripts/base-mainnet/deployment/deploymentScript_AllContracts_via_basescan.sh
+sh ./scripts/base-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier_via_basescan.sh
 ```
-+
-SC verification via `BlockScount` is here:
+
+<br>
+
+- Run the `DeploymentForTravelHistoryManager_basescan.s.sol` to deploy the  `TravelHistoryManager` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `BaseScan` of BASE Mainnet (https://basescan.io)
 ```bash
-sh ./scripts/base-mainnet/deployment/deploymentScript_AllContracts_via_blockscout.sh
+sh ./scripts/base-mainnet/deployment/deploymentScript_TravelHistoryManager_via_basescan.sh
 ```
 
 
@@ -239,6 +245,15 @@ cp .env.example .env
 - 2/ Deploy all contracts on `Celo Sepolia Testnet` by running the `script/celo-testnet/deployment/DeploymentAllContracts.s.sol` 
 ```bash
 sh ./script/celo-testnet/deployment/deployment-on-celo-testnet.sh
+```
+
+<br>
+
+## Smart Contract - Verification on BASE mainnet (`Each SC`)
+- Run for verifying the  `All` contract on BASE mainnet:
+  - NOTE: The smart contract is verified in `BlockScout` of BASE Mainnet (https://base.blockscout.com)
+```bash
+sh ./scripts/base-mainnet/verification/verificationScript_AllContracts_via_blockscout.sh
 ```
 
 <br>
