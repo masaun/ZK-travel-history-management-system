@@ -123,4 +123,18 @@ contract TravelHistoryManager {
         return true;
     }
 
+    /**
+     * @notice - stake function
+     */
+    function stake() public returns (bool) {
+        return true;
+    }
+
+    /**
+     * @notice - unstake function
+     */
+    function unstake() public returns (bool) {
+        return true;
+    }
+
 }
