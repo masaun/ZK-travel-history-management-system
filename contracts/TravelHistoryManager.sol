@@ -17,6 +17,7 @@ contract TravelHistoryManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => bool) public travelers;
+    mapping(address => uint256) public checkpoints;
 
     string public version;
 
@@ -115,9 +116,10 @@ contract TravelHistoryManager {
     }
 
     /**
-     * @notice - This function is a test function
+     * @notice - checkpoint function
      */
-    function poke() public returns (bool) {
+    function checkpoint() public returns (bool) {
+        checkpoints[msg.sender] = block.timestamp;
         return true;
     }
 
