@@ -17,7 +17,9 @@ contract TravelHistoryManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => bool) public travelers;
+    
     mapping(address => uint256) public checkpoints;
+    mapping(address => bool) public stakers;
 
     string public version;
 
@@ -39,7 +41,7 @@ contract TravelHistoryManager {
         require(result, "Travel History Proof is not valid");
 
         // @dev - Double spending check for a given proof 
-        //require(travelHistoryProofRecords[msg.sender][proof] == false, "A given proof is already recorded on-chain, which means this given proof is double-spending");
+        require(travelHistoryProofRecords[msg.sender][proof] == false, "A given proof is already recorded on-chain, which means this given proof is double-spending");
 
         // Record a travel history proof
         travelHistoryProofRecords[msg.sender][proof] = true;
@@ -127,6 +129,7 @@ contract TravelHistoryManager {
      * @notice - stake function
      */
     function stake() public returns (bool) {
+        stakers[msg.sender] = true;
         return true;
     }
 
@@ -134,6 +137,8 @@ contract TravelHistoryManager {
      * @notice - unstake function
      */
     function unstake() public returns (bool) {
+        require(stakers[msg.sender], "You are not a staker");
+        stakers[msg.sender] = false;
         return true;
     }
 
