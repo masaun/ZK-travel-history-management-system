@@ -129,11 +129,11 @@ contract TravelHistoryManager {
     /**
      * @notice - stake a given amount of a native token
      */
-    function stakeNativeToken(uint256 amount) public returns (bool) {
-        require(amount > 0, "Amount must be greater than 0");
-        require(msg.sender.balance >= amount, "Insufficient balance to stake");
-        stakedAmounts[msg.sender] = amount;
-        (bool success, ) = address(this).call{value: amount}("");
+    function stakeNativeToken() public payable returns (bool) {
+        require(msg.value > 0, "Amount must be greater than 0");
+        require(msg.sender.balance >= msg.value, "Insufficient balance to stake");
+        stakedAmounts[msg.sender] = msg.value;
+        (bool success, ) = address(this).call{value: msg.value}("");
         require(success, "Stake failed");
         stakers[msg.sender] = true;
         return true;
@@ -146,11 +146,28 @@ contract TravelHistoryManager {
         require(stakers[msg.sender], "You are not a staker");
         require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
         uint256 amount = stakedAmounts[msg.sender];
-        address staker = msg.sender;
+        address payable staker = payable(msg.sender);
         stakedAmounts[msg.sender] = 0;
-        staker.call{value: amount}("");
         stakers[msg.sender] = false;
+        (bool success, ) = staker.call{value: amount}("");
+        require(success, "Unstake failed");
         return true;
     }
 
+    /**
+     * @notice - Get the contract's native token balance
+     */
+    function getContractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+
+    /**
+     * @notice - Receive function to accept Ether transfers
+     */
+    receive() external payable {}
+
+    /**
+     * @notice - Fallback function
+     */
+    fallback() external payable {}
 }
