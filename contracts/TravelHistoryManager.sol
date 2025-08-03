@@ -20,6 +20,7 @@ contract TravelHistoryManager {
     
     mapping(address => uint256) public checkpoints;
     mapping(address => bool) public stakers;
+    mapping(address => uint256) public stakedAmounts;
 
     string public version;
 
@@ -126,18 +127,28 @@ contract TravelHistoryManager {
     }
 
     /**
-     * @notice - stake function
+     * @notice - stake a given amount of a native token
      */
-    function stake() public returns (bool) {
+    function stakeNativeToken(uint256 amount) public returns (bool) {
+        require(amount > 0, "Amount must be greater than 0");
+        require(msg.sender.balance >= amount, "Insufficient balance to stake");
+        stakedAmounts[msg.sender] = amount;
+        (bool success, ) = address(this).call{value: amount}("");
+        require(success, "Stake failed");
         stakers[msg.sender] = true;
         return true;
     }
 
     /**
-     * @notice - unstake function
+     * @notice - unstake a given amount of a native token
      */
-    function unstake() public returns (bool) {
+    function unstakeNativeToken() public returns (bool) {
         require(stakers[msg.sender], "You are not a staker");
+        require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
+        uint256 amount = stakedAmounts[msg.sender];
+        address staker = msg.sender;
+        stakedAmounts[msg.sender] = 0;
+        staker.call{value: amount}("");
         stakers[msg.sender] = false;
         return true;
     }
