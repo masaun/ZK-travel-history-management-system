@@ -133,7 +133,7 @@ sh ./test/electroneum-testnet/runningTest_TravelHistoryProofVerifierOnElectroneu
 
 - Run the script of the `TravelHistoryProofVerifier.s.sol`, which is the test file of the `TravelHistoryProofVerifier.sol` on Electroneum Testnet.
 ```shell
-sh ./script/electroneum-testnet/runningScript_TravelHistoryProofVerifier.sh
+sh ./scripts/electroneum-testnet/runningScript_TravelHistoryProofVerifier.sh
 ```
 
 <br>
