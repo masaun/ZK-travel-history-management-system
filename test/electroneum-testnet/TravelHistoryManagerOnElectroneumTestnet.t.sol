@@ -25,7 +25,7 @@ contract TravelHistoryManagerOnElectroneumTestnetTest is Test {
         //verifier = new HonkVerifier();
         travelHistoryProofVerifier = TravelHistoryProofVerifier(TRAVEL_HISTORY_PROOF_VERIFIER);
         //travelHistoryProofVerifier = new TravelHistoryProofVerifier(verifier);
-        travelHistoryManager = TravelHistoryManager(TRAVEL_HISTORY_MANAGER);
+        travelHistoryManager = TravelHistoryManager(payable(TRAVEL_HISTORY_MANAGER));
         //travelHistoryManager = new TravelHistoryManager(travelHistoryProofVerifier);
     }
 
