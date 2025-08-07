@@ -17,16 +17,12 @@ contract TravelHistoryManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => bool) public travelers;
-    
-    mapping(address => uint256) public checkpoints;
-    mapping(address => bool) public stakers;
-    mapping(address => uint256) public stakedAmounts;
 
     string public version;
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.1";
+        version = "0.2.2";
     }
 
     /**
@@ -117,59 +113,4 @@ contract TravelHistoryManager {
         travelers[msg.sender] = false;
         return true;
     }
-
-    /**
-     * @notice - checkpoint function
-     */
-    function checkpoint() public returns (bool) {
-        checkpoints[msg.sender] = block.timestamp;
-        return true;
-    }
-
-    /**
-     * @notice - stake a given amount of a native token
-     */
-    function stakeNativeToken() public payable returns (bool) {
-        checkpoint();
-        require(msg.value > 0, "Amount must be greater than 0");
-        require(msg.sender.balance >= msg.value, "Insufficient balance to stake");
-        stakedAmounts[msg.sender] = msg.value;
-        (bool success, ) = address(this).call{value: msg.value}("");
-        require(success, "Stake failed");
-        stakers[msg.sender] = true;
-        return true;
-    }
-
-    /**
-     * @notice - unstake a given amount of a native token
-     */
-    function unstakeNativeToken() public returns (bool) {
-        checkpoint();
-        require(stakers[msg.sender], "You are not a staker");
-        require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
-        uint256 amount = stakedAmounts[msg.sender];
-        address payable staker = payable(msg.sender);
-        stakedAmounts[msg.sender] = 0;
-        stakers[msg.sender] = false;
-        (bool success, ) = staker.call{value: amount}("");
-        require(success, "Unstake failed");
-        return true;
-    }
-
-    /**
-     * @notice - Get the contract's native token balance
-     */
-    function getContractBalance() public view returns (uint256) {
-        return address(this).balance;
-    }
-
-    /**
-     * @notice - Receive function to accept Ether transfers
-     */
-    receive() external payable {}
-
-    /**
-     * @notice - Fallback function
-     */
-    fallback() external payable {}
 }
