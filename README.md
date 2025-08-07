@@ -205,12 +205,19 @@ sh ./scripts/base-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier
 sh ./scripts/base-mainnet/deployment/deploymentScript_TravelHistoryManager_via_basescan.sh
 ```
 
+<br>
+
+- Run the `DeploymentForStakingPool_basescan.s.sol` to deploy the  `StakingPool` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `BaseScan` of BASE Mainnet (https://basescan.io)
+```bash
+sh ./scripts/base-mainnet/deployment/deploymentScript_StakingPool_via_basescan.sh
+```
 
 <br>
 
 ## Deployment on Celo mainnet (`Each SC`)
 
-- Run the `DeploymentForHonkVerifier_celoscan.s.sol` to deploy the  `HonkVerifier` contract on BASE mainnet:
+- Run the `DeploymentForHonkVerifier_celoscan.s.sol` to deploy the  `HonkVerifier` contract on Celo mainnet:
   - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
 ```bash
 sh ./scripts/celo-mainnet/deployment/deploymentScript_HonkVerifier_via_celoscan.sh
@@ -218,7 +225,7 @@ sh ./scripts/celo-mainnet/deployment/deploymentScript_HonkVerifier_via_celoscan.
 
 <br>
 
-- Run the `DeploymentForTravelHistoryProofVerifier_celoscan.s.sol` to deploy the  `TravelHistoryProofVerifier` contract on BASE mainnet:
+- Run the `DeploymentForTravelHistoryProofVerifier_celoscan.s.sol` to deploy the  `TravelHistoryProofVerifier` contract on Celo mainnet:
   - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
 ```bash
 sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier_via_celoscan.sh
@@ -226,10 +233,18 @@ sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryProofVerifier
 
 <br>
 
-- Run the `DeploymentForTravelHistoryManager_celoscan.s.sol` to deploy the  `TravelHistoryManager` contract on BASE mainnet:
+- Run the `DeploymentForTravelHistoryManager_celoscan.s.sol` to deploy the  `TravelHistoryManager` contract on Celo mainnet:
   - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
 ```bash
 sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelHistoryManager_via_celoscan.sh
+```
+
+<br>
+
+- Run the `DeploymentForStakingPool_celoscan.s.sol` to deploy the  `StakingPool` contract on Celo mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_StakingPool_via_celoscan.sh
 ```
 
 <br>
