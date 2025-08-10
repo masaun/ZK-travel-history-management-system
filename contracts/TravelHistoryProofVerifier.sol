@@ -11,9 +11,12 @@ import { HonkVerifier } from "./circuit/ultra-verifier/plonk_vk.sol";
  */
 contract TravelHistoryProofVerifier {
     HonkVerifier public verifier;
+    
+    string public version;
 
     constructor(HonkVerifier _verifier) {
         verifier = _verifier;
+        version = "0.2.3";
     }
 
     function verifyTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInput) public view returns (bool) {

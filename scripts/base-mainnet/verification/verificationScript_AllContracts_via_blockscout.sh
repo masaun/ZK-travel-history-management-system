@@ -38,3 +38,12 @@ forge verify-contract \
   --verifier-url 'https://base.blockscout.com/api/' \
   ${STAKING_POOL_ON_BASE_MAINNET} \
   ./contracts/StakingPool.sol:StakingPool
+
+# @notice - Verify the TravelBookingManager contract on BASE Mainnet. 
+echo "Verifying the TravelBookingManager contract on BASE Mainnet (via BlockScout)..."
+forge verify-contract \
+  --rpc-url ${BASE_MAINNET_RPC} \
+  --verifier blockscout \
+  --verifier-url 'https://base.blockscout.com/api/' \
+  ${TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET} \
+  ./contracts/TravelBookingManager.sol:TravelBookingManager
