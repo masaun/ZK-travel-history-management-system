@@ -215,6 +215,14 @@ sh ./scripts/base-mainnet/deployment/deploymentScript_StakingPool_via_basescan.s
 
 <br>
 
+- Run the `DeploymentForTravelBookingManager_basescan.s.sol` to deploy the  `TravelBookingManager` contract on BASE mainnet:
+  - NOTE: The smart contract is verified via the `BaseScan` of BASE Mainnet (https://basescan.io)
+```bash
+sh ./scripts/base-mainnet/deployment/deploymentScript_TravelBookingManager_via_basescan.sh
+```
+
+<br>
+
 ## Deployment on Celo mainnet (`Each SC`)
 
 - Run the `DeploymentForHonkVerifier_celoscan.s.sol` to deploy the  `HonkVerifier` contract on Celo mainnet:
