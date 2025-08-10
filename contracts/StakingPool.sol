@@ -38,9 +38,9 @@ contract StakingPool {
     }
 
     /**
-     * @notice - stake a given amount of a native token
+     * @notice - stake a given amount of a native token into the staking pool
      */
-    function stakeNativeToken() public payable returns (bool) {
+    function stakeNativeTokenIntoStakingPool() public payable returns (bool) {
         checkpoint();
         require(msg.value > 0, "Amount must be greater than 0");
         require(msg.sender.balance >= msg.value, "Insufficient balance to stake");
@@ -51,9 +51,9 @@ contract StakingPool {
     }
 
     /**
-     * @notice - unstake a given amount of a native token
+     * @notice - unstake a given amount of a native token from the staking pool
      */
-    function unstakeNativeToken() public returns (bool) {
+    function unstakeNativeTokenFromStakingPool() public returns (bool) {
         checkpoint();
         require(stakers[msg.sender], "You are not a staker");
         require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
