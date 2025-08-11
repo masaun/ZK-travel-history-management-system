@@ -22,7 +22,7 @@ contract TravelHistoryManager {
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.3";
+        version = "0.2.4";
     }
 
     /**
