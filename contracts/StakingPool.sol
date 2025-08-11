@@ -11,7 +11,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.3";
+        version = "0.2.4";
     }
 
     /**
@@ -75,10 +75,18 @@ contract StakingPool {
     /**
      * @notice - Receive function to accept Ether transfers
      */
-    receive() external payable {}
+    receive() external payable {
+        require(msg.value > 0, "Must send some Ether");
+        stakedAmounts[msg.sender] += msg.value;
+        checkpoint();
+    }
 
     /**
      * @notice - Fallback function
      */
-    fallback() external payable {}
+    fallback() external payable {
+        require(msg.value > 0, "Must send some Ether");
+        stakedAmounts[msg.sender] += msg.value;
+        checkpoint();
+    }
 }
