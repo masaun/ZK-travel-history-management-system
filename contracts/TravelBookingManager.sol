@@ -16,6 +16,7 @@ contract TravelBookingManager {
 
     mapping(address => bool) public bookers;
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
+    mapping(address => uint256) public lockedAmounts; // @dev - Locked amounts for the booking to be escrowed.
 
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
@@ -25,7 +26,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.4";
+        version = "0.2.5";
     }
 
     /**
@@ -77,10 +78,20 @@ contract TravelBookingManager {
     /**
      * @notice - Receive function to accept Ether transfers
      */
-    receive() external payable {}
+    receive() external payable {
+        require(msg.value > 0, "Must send some Ether");
+        lockedAmounts[msg.sender] += msg.value;
+        // (bool success, ) = msg.sender.call{value: msg.value}("");
+        // require(success, "Transfering back failed");
+    }
 
     /**
      * @notice - Fallback function
      */
-    fallback() external payable {}
+    fallback() external payable {
+        require(msg.value > 0, "Must send some Ether");
+        lockedAmounts[msg.sender] += msg.value;
+        // (bool success, ) = msg.sender.call{value: msg.value}("");
+        // require(success, "Transfering back failed");
+    }
 }
