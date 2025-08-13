@@ -17,12 +17,13 @@ contract TravelHistoryManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => bool) public travelers;
+    mapping(address => mapping(uint256 => string)) public checkpoints;
 
     string public version;
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.5";
+        version = "0.2.6";
     }
 
     /**
@@ -111,6 +112,19 @@ contract TravelHistoryManager {
     function deregisterAsTraveler() public returns (bool) {
         require(travelers[msg.sender], "You are not registered as a traveler");
         travelers[msg.sender] = false;
+        return true;
+    }
+
+    /**
+     * @notice - checkpoint function
+     */
+    function checkpoint(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = methodName;
+        return true;
+    }
+
+    function testFunction() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "testFunction";
         return true;
     }
 }
