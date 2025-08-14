@@ -4,14 +4,14 @@ pragma solidity ^0.8.25;
  * @notice - The StakingPool contract
  */
 contract StakingPool {
-    mapping(address => uint256) public checkpoints;
+    mapping(address => mapping(uint256 => string)) public checkpoints;
     mapping(address => bool) public stakers;
     mapping(address => uint256) public stakedAmounts;
 
     string public version;
 
     constructor() {
-        version = "0.2.6";
+        version = "0.2.7";
     }
 
     /**
@@ -30,18 +30,10 @@ contract StakingPool {
     }
 
     /**
-     * @notice - checkpoint function
-     */
-    function checkpoint() public returns (bool) {
-        checkpoints[msg.sender] = block.timestamp;
-        return true;
-    }
-
-    /**
      * @notice - stake a given amount of a native token into the staking pool
      */
     function stakeNativeTokenIntoStakingPool() public payable returns (bool) {
-        checkpoint();
+        //checkpoint();
         require(msg.value > 0, "Amount must be greater than 0");
         require(msg.sender.balance >= msg.value, "Insufficient balance to stake");
         stakedAmounts[msg.sender] = msg.value;
@@ -54,7 +46,7 @@ contract StakingPool {
      * @notice - unstake a given amount of a native token from the staking pool
      */
     function unstakeNativeTokenFromStakingPool() public returns (bool) {
-        checkpoint();
+        //checkpoint();
         require(stakers[msg.sender], "You are not a staker");
         require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
         uint256 amount = stakedAmounts[msg.sender];
@@ -73,12 +65,25 @@ contract StakingPool {
     }
 
     /**
+     * @notice - checkpoint function
+     */
+    function checkpoint(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = methodName;
+        return true;
+    }
+
+    function testFunction() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "testFunction";
+        return true;
+    }
+
+    /**
      * @notice - Receive function to accept Ether transfers
      */
     receive() external payable {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
-        checkpoint();
+        //checkpoint();
     }
 
     /**
@@ -87,6 +92,6 @@ contract StakingPool {
     fallback() external payable {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
-        checkpoint();
+        //checkpoint();
     }
 }

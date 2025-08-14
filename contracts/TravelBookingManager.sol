@@ -20,13 +20,15 @@ contract TravelBookingManager {
 
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
+    mapping(address => mapping(uint256 => string)) public checkpoints;
+
     string public version;
 
     // [TODO]: Once the TravelBookingProofVerifier is implemented, uncomment the constructor below
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.6";
+        version = "0.2.7";
     }
 
     /**
@@ -72,6 +74,19 @@ contract TravelBookingManager {
     function unregisterAsBooker() public returns (bool) {
         require(bookers[msg.sender], "Booker does not exist");
         bookers[msg.sender] = false;
+        return true;
+    }
+
+    /**
+     * @notice - checkpoint function
+     */
+    function checkpoint(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = methodName;
+        return true;
+    }
+
+    function testFunction() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "testFunction";
         return true;
     }
 
