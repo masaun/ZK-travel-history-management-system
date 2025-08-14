@@ -23,7 +23,7 @@ contract TravelHistoryManager {
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.6";
+        version = "0.2.7";
     }
 
     /**
@@ -58,6 +58,9 @@ contract TravelHistoryManager {
 
         // PublicInputs veridations (NOTE: This can be customized by each authority of each country)
         nullifiers[publicInput.nullifierHash] = true;
+
+        // @dev - Checkpoint
+        checkpoints[msg.sender][block.timestamp] = "recordTravelHistoryProof";
     }
 
     /**
@@ -104,12 +107,14 @@ contract TravelHistoryManager {
      * @notice - Register as a traveler
      */
     function registerAsTraveler() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "registerAsTraveler";
         require(!travelers[msg.sender], "You have already registered as a traveler");
         travelers[msg.sender] = true;
         return true;
     }
 
     function deregisterAsTraveler() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "deregisterAsTraveler";
         require(travelers[msg.sender], "You are not registered as a traveler");
         travelers[msg.sender] = false;
         return true;
