@@ -28,7 +28,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.7";
+        version = "0.2.8";
     }
 
     /**
@@ -42,15 +42,20 @@ contract TravelBookingManager {
 
         // @dev - [TODO]: Once the proof is confirmed as a valid proof, the payment will be escrowed to the travel agency or service provider.
         bool isPaymentEscrowed = true; // [TODO]: Replace with actual payment escrow logic
+
+        checkpoints[msg.sender][block.timestamp] = "escrowBookingPayment";
     }
 
     function bookBooking(uint256 roomId) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
+
         // @dev - [TODO]: Implement the logic to book a room
         return true;
     }
 
     function cancelBooking(uint256 roomId) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "cancelBooking";
         require(bookedRooms[msg.sender][roomId], "Room is not booked");
         bookedRooms[msg.sender][roomId] = false;
         // @dev - [TODO]: Implement the logic to cancel a booking
@@ -66,12 +71,14 @@ contract TravelBookingManager {
     }
 
     function registerAsBooker() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "registerAsBooker";
         require(!bookers[msg.sender], "Booker already exists");
         bookers[msg.sender] = true;
         return true;
     }
 
     function unregisterAsBooker() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "unregisterAsBooker";
         require(bookers[msg.sender], "Booker does not exist");
         bookers[msg.sender] = false;
         return true;
@@ -98,6 +105,7 @@ contract TravelBookingManager {
         lockedAmounts[msg.sender] += msg.value;
         // (bool success, ) = msg.sender.call{value: msg.value}("");
         // require(success, "Transfering back failed");
+        checkpoints[msg.sender][block.timestamp] = "receive";
     }
 
     /**
@@ -108,5 +116,6 @@ contract TravelBookingManager {
         lockedAmounts[msg.sender] += msg.value;
         // (bool success, ) = msg.sender.call{value: msg.value}("");
         // require(success, "Transfering back failed");
+        checkpoints[msg.sender][block.timestamp] = "fallback";
     }
 }

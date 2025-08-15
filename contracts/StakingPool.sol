@@ -11,7 +11,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.7";
+        version = "0.2.8";
     }
 
     /**
@@ -20,12 +20,14 @@ contract StakingPool {
     function registerAsStaker() public returns (bool) {
         require(!stakers[msg.sender], "You have already registered as a staker");
         stakers[msg.sender] = true;
+        checkpoints[msg.sender][block.timestamp] = "registerAsStaker";
         return true;
     }
 
     function deregisterAsStaker() public returns (bool) {
         require(stakers[msg.sender], "You are not registered as a staker");
         stakers[msg.sender] = false;
+        checkpoints[msg.sender][block.timestamp] = "deregisterAsStaker";
         return true;
     }
 
@@ -39,6 +41,7 @@ contract StakingPool {
         stakedAmounts[msg.sender] = msg.value;
         (bool success, ) = address(this).call{value: msg.value}("");
         require(success, "Stake failed");
+        checkpoints[msg.sender][block.timestamp] = "stakeNativeTokenIntoStakingPool";
         return true;
     }
 
@@ -54,6 +57,7 @@ contract StakingPool {
         stakedAmounts[msg.sender] = 0;
         (bool success, ) = staker.call{value: amount}("");
         require(success, "Unstake failed");
+        checkpoints[msg.sender][block.timestamp] = "unstakeNativeTokenFromStakingPool";
         return true;
     }
 
@@ -83,7 +87,7 @@ contract StakingPool {
     receive() external payable {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
-        //checkpoint();
+        checkpoints[msg.sender][block.timestamp] = "receive";
     }
 
     /**
@@ -92,6 +96,6 @@ contract StakingPool {
     fallback() external payable {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
-        //checkpoint();
+        checkpoints[msg.sender][block.timestamp] = "fallback";
     }
 }
