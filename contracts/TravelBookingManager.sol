@@ -16,6 +16,7 @@ contract TravelBookingManager {
 
     mapping(address => bool) public bookers;
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
+    mapping(uint256 => uint256) public roomPrices; // @dev - Room prices for each room ID
     mapping(address => uint256) public lockedAmounts; // @dev - Locked amounts for the booking to be escrowed.
 
     mapping(bytes32 hash => bool isNullified) public nullifiers;
@@ -28,7 +29,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.8";
+        version = "0.2.9";
     }
 
     /**
@@ -51,6 +52,8 @@ contract TravelBookingManager {
         bookedRooms[msg.sender][roomId] = true;
 
         // @dev - [TODO]: Implement the logic to book a room
+        uint256 roomPrice = roomPrices[roomId];
+        lockedAmounts[msg.sender] += roomPrice; // @dev - booking amount
         return true;
     }
 
@@ -59,6 +62,11 @@ contract TravelBookingManager {
         require(bookedRooms[msg.sender][roomId], "Room is not booked");
         bookedRooms[msg.sender][roomId] = false;
         // @dev - [TODO]: Implement the logic to cancel a booking
+        return true;
+    }
+
+    function listAvailableRooms(uint256 roomId, uint256 roomPrice) public returns (bool) {
+        roomPrices[roomId] = roomPrice; // @dev - Set the price for the room
         return true;
     }
 
