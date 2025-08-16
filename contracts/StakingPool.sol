@@ -11,7 +11,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.8";
+        version = "0.2.9";
     }
 
     /**
@@ -35,7 +35,6 @@ contract StakingPool {
      * @notice - stake a given amount of a native token into the staking pool
      */
     function stakeNativeTokenIntoStakingPool() public payable returns (bool) {
-        //checkpoint();
         require(msg.value > 0, "Amount must be greater than 0");
         require(msg.sender.balance >= msg.value, "Insufficient balance to stake");
         stakedAmounts[msg.sender] = msg.value;
@@ -49,7 +48,6 @@ contract StakingPool {
      * @notice - unstake a given amount of a native token from the staking pool
      */
     function unstakeNativeTokenFromStakingPool() public returns (bool) {
-        //checkpoint();
         require(stakers[msg.sender], "You are not a staker");
         require(stakedAmounts[msg.sender] > 0, "You have no staked amount to withdraw");
         uint256 amount = stakedAmounts[msg.sender];
