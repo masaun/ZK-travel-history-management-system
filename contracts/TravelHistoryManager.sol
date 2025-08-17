@@ -14,7 +14,8 @@ contract TravelHistoryManager {
 
     mapping(address => mapping(bytes => DataType.PublicInput)) public publicInputsOfTravelHistoryProofs;
     mapping(address => mapping(bytes => bool)) public travelHistoryProofRecords;
-    mapping(bytes32 hash => bool isNullified) public nullifiers;
+    mapping(bytes32 nullifierHash => bool isNullified) public nullifiers;
+    mapping(address => bytes32 nullifierHash) public nullifiersByWalletAddresses;
 
     mapping(address => bool) public travelers;
     mapping(address => mapping(uint256 => string)) public checkpoints;
@@ -23,7 +24,7 @@ contract TravelHistoryManager {
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.9";
+        version = "0.2.10";
     }
 
     /**
@@ -58,6 +59,9 @@ contract TravelHistoryManager {
 
         // PublicInputs veridations (NOTE: This can be customized by each authority of each country)
         nullifiers[publicInput.nullifierHash] = true;
+
+        // @dev - Store a given nullifier into the nullifiersByWalletAddresses mapping storage
+        nullifiersByWalletAddresses[msg.sender] = publicInput.nullifierHash;
 
         // @dev - Checkpoint
         checkpoints[msg.sender][block.timestamp] = "recordTravelHistoryProof";
