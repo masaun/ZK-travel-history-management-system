@@ -29,7 +29,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.11";
+        version = "0.2.12";
     }
 
     /**
@@ -51,9 +51,14 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
 
-        // @dev - [TODO]: Implement the logic to book a room
+        // @dev - Book a room
         uint256 roomPrice = roomPrices[roomId];
         lockedAmounts[msg.sender] += roomPrice; // @dev - booking amount
+
+        // @dev - Lock a booking amount
+        bool success;
+        (success, ) = address(this).call{value: roomPrice}(""); // @dev - Lock the booking amount in the contract
+        require(success, "Failed to lock a booking amount");
         return true;
     }
 
@@ -61,7 +66,14 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "cancelBooking";
         require(bookedRooms[msg.sender][roomId], "Room is not booked");
         bookedRooms[msg.sender][roomId] = false;
-        // @dev - [TODO]: Implement the logic to cancel a booking
+
+        // @dev - Retrieve a room price
+        uint256 roomPrice = roomPrices[roomId];
+
+        // @dev - Unlock a booking amount
+        bool success;
+        (success, ) = msg.sender.call{value: roomPrice}(""); // @dev - Unlock the booking amount in the contract
+        require(success, "Failed to unlock a booking amount");
         return true;
     }
 
