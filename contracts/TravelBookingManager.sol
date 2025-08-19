@@ -57,7 +57,7 @@ contract TravelBookingManager {
 
         // @dev - Lock a booking amount
         bool success;
-        (success, ) = address(this).call{value: roomPrice}(""); // @dev - Lock the booking amount in the contract
+        (success, ) = address(this).call{value: msg.value}(""); // @dev - Lock the booking amount in the contract
         require(success, "Failed to lock a booking amount");
         return true;
     }
