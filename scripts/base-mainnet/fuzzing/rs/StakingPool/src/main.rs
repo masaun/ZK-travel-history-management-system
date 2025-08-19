@@ -1,9 +1,13 @@
 use alloy::{
-    providers::{ProviderBuilder},
+    providers::{ProviderBuilder, Provider},
+    signers::local::PrivateKeySigner,
     primitives::{Address, U256},
+    transports::http::Http,
     sol,
 };
-use std::env;
+use alloy_provider::fillers::{WalletFiller, JoinFill, FillProvider};
+use alloy_signer::Signature;
+use std::{env, str::FromStr};
 
 sol! {
     #[sol(rpc)]
@@ -30,6 +34,8 @@ async fn main() -> eyre::Result<()> {
     // Config (replace with your info)
     // -------------------------------
     let rpc_url = "https://mainnet.base.org"; // Base mainnet RPC
+    let private_key = env::var("PRIVATE_KEY")
+        .expect("Set PRIVATE_KEY in your environment");
 
     let contract_addr: Address = env::var("STAKING_POOL_ON_BASE_MAINNET")
         .expect("Set STAKING_POOL_ON_BASE_MAINNET in your environment")
@@ -37,17 +43,18 @@ async fn main() -> eyre::Result<()> {
     //let contract_addr: Address = "0xYourContractAddress".parse()?; // Replace with deployed contract
 
     // -------------------------------
-    // Setup provider
+    // Setup provider + signer
     // -------------------------------
+    let signer = PrivateKeySigner::from_str(&private_key)?;
+    
     // Parse RPC URL
     let rpc_url = rpc_url.parse::<reqwest::Url>()
         .map_err(|e| eyre::eyre!("Invalid RPC URL: {}", e))?;
     
+    // Create provider with signer (alloy v0.1 approach)
     let provider = ProviderBuilder::new()
+        .wallet(signer)
         .on_http(rpc_url);
-    
-    // For now, we'll create a simple contract instance without signer
-    // to test basic functionality
 
     let staking_pool = StakingPool::new(contract_addr, provider);
 
@@ -72,15 +79,57 @@ async fn main() -> eyre::Result<()> {
         }
 
         "register" => {
-            println!("Register functionality requires a signer. Not implemented in read-only mode.");
+            println!("Calling registerAsStaker()...");
+            let call_builder = staking_pool.registerAsStaker();
+            let pending_tx = call_builder.send().await?;
+            println!("Transaction sent: {:?}", pending_tx.tx_hash());
+            
+            let receipt = pending_tx.get_receipt().await?;
+            println!("Registered as staker in block {:?}", receipt.block_number);
+            if receipt.status() {
+                println!("✅ Registration successful!");
+            } else {
+                println!("❌ Registration failed!");
+            }
         }
 
         "stake" => {
-            println!("Stake functionality requires a signer. Not implemented in read-only mode.");
+            if args.len() < 3 {
+                eprintln!("Usage: cargo run -- stake <ETH_AMOUNT>");
+                return Ok(());
+            }
+            let eth_amount: f64 = args[2].parse().unwrap();
+            let wei_amount = eth_to_wei(eth_amount);
+            
+            println!("Staking {} ETH ({} wei)...", eth_amount, wei_amount);
+            let call_builder = staking_pool
+                .stakeNativeTokenIntoStakingPool()
+                .value(wei_amount);
+            let pending_tx = call_builder.send().await?;
+            println!("Transaction sent: {:?}", pending_tx.tx_hash());
+            
+            let receipt = pending_tx.get_receipt().await?;
+            println!("Staked {} ETH in block {:?}", eth_amount, receipt.block_number);
+            if receipt.status() {
+                println!("✅ Staking successful!");
+            } else {
+                println!("❌ Staking failed!");
+            }
         }
 
         "unstake" => {
-            println!("Unstake functionality requires a signer. Not implemented in read-only mode.");
+            println!("Calling unstakeNativeTokenFromStakingPool()...");
+            let call_builder = staking_pool.unstakeNativeTokenFromStakingPool();
+            let pending_tx = call_builder.send().await?;
+            println!("Transaction sent: {:?}", pending_tx.tx_hash());
+            
+            let receipt = pending_tx.get_receipt().await?;
+            println!("Unstaked in block {:?}", receipt.block_number);
+            if receipt.status() {
+                println!("✅ Unstaking successful!");
+            } else {
+                println!("❌ Unstaking failed!");
+            }
         }
 
         "balance" => {
