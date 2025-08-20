@@ -29,13 +29,13 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.12";
+        version = "0.2.13";
     }
 
     /**
      * @notice - Once the proof is confirmed as a valid proof, the payment for booking a room will be escrowed to the travel agency or service provider.
      */
-    function escrowBookingPayment(bytes calldata proof, bytes32[] calldata publicInputs) public returns (bool) {
+    function escrowBookingPayment(bytes calldata proof, bytes32[] calldata publicInputs, uint256 roomId) public returns (bool) {
         // Verify a travel booking proof
         bool isValidTravelBookingProof = true; // [TODO]: Replace with actual verification logic below (= travelBookingProofVerifier#verifyTravelBookingProof())
         //bool isValidTravelBookingProof = travelBookingProofVerifier.verifyTravelBookingProof(proof, publicInputs);
@@ -44,10 +44,14 @@ contract TravelBookingManager {
         // @dev - [TODO]: Once the proof is confirmed as a valid proof, the payment will be escrowed to the travel agency or service provider.
         bool isPaymentEscrowed = true; // [TODO]: Replace with actual payment escrow logic
 
+        // @dev - Book a room
+        uint256 roomPrice = roomPrices[roomId];
+        lockedAmounts[msg.sender] -= roomPrice; // @dev - booking amount
+
         checkpoints[msg.sender][block.timestamp] = "escrowBookingPayment";
     }
 
-    function bookBooking(uint256 roomId) public returns (bool) {
+    function bookBooking(uint256 roomId) public payable returns (bool) {
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
 
@@ -57,7 +61,7 @@ contract TravelBookingManager {
 
         // @dev - Lock a booking amount
         bool success;
-        (success, ) = address(this).call{value: roomPrice}(""); // @dev - Lock the booking amount in the contract
+        (success, ) = address(this).call{value: msg.value}(""); // @dev - Lock the booking amount in the contract
         require(success, "Failed to lock a booking amount");
         return true;
     }
