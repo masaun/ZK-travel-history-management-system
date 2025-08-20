@@ -35,7 +35,7 @@ contract TravelBookingManager {
     /**
      * @notice - Once the proof is confirmed as a valid proof, the payment for booking a room will be escrowed to the travel agency or service provider.
      */
-    function escrowBookingPayment(bytes calldata proof, bytes32[] calldata publicInputs) public returns (bool) {
+    function escrowBookingPayment(bytes calldata proof, bytes32[] calldata publicInputs, uint256 roomId) public returns (bool) {
         // Verify a travel booking proof
         bool isValidTravelBookingProof = true; // [TODO]: Replace with actual verification logic below (= travelBookingProofVerifier#verifyTravelBookingProof())
         //bool isValidTravelBookingProof = travelBookingProofVerifier.verifyTravelBookingProof(proof, publicInputs);
@@ -51,7 +51,7 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "escrowBookingPayment";
     }
 
-    function bookBooking(uint256 roomId) public returns (bool) {
+    function bookBooking(uint256 roomId) public payable returns (bool) {
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
 
