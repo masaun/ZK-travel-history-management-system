@@ -16,6 +16,7 @@ contract TravelBookingManager {
 
     mapping(address => bool) public bookers;
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
+    mapping(uint256 roomId => address booker) public bookerOfRooms;
     mapping(uint256 => uint256) public roomPrices; // @dev - Room prices for each room ID
     mapping(address => uint256) public lockedAmounts; // @dev - Locked amounts for the booking to be escrowed.
 
@@ -29,7 +30,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.13";
+        version = "0.2.14";
     }
 
     /**
@@ -45,8 +46,10 @@ contract TravelBookingManager {
         bool isPaymentEscrowed = true; // [TODO]: Replace with actual payment escrow logic
 
         // @dev - Book a room
+        address booker = bookerOfRooms[roomId];
         uint256 roomPrice = roomPrices[roomId];
-        lockedAmounts[msg.sender] -= roomPrice; // @dev - booking amount
+        lockedAmounts[booker] -= roomPrice; // @dev - booking amount
+        payable(msg.sender).call{value: roomPrice}(""); // @dev - Lock the booking amount in the contract
 
         checkpoints[msg.sender][block.timestamp] = "escrowBookingPayment";
     }
@@ -54,6 +57,7 @@ contract TravelBookingManager {
     function bookBooking(uint256 roomId) public payable returns (bool) {
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
+        bookerOfRooms[roomId] = msg.sender;
 
         // @dev - Book a room
         uint256 roomPrice = roomPrices[roomId];
@@ -70,6 +74,7 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "cancelBooking";
         require(bookedRooms[msg.sender][roomId], "Room is not booked");
         bookedRooms[msg.sender][roomId] = false;
+        bookerOfRooms[roomId] = address(0);
 
         // @dev - Retrieve a room price
         uint256 roomPrice = roomPrices[roomId];
