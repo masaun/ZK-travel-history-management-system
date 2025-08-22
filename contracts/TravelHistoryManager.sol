@@ -24,7 +24,7 @@ contract TravelHistoryManager {
 
     constructor(TravelHistoryProofVerifier _travelHistoryProofVerifier) {
         travelHistoryProofVerifier = _travelHistoryProofVerifier;
-        version = "0.2.14";
+        version = "0.2.16";
     }
 
     /**
@@ -129,6 +129,7 @@ contract TravelHistoryManager {
      */
     function checkpoint(string memory methodName) public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = methodName;
+        checkpoints[msg.sender][block.timestamp] = "checkpoint";
         return true;
     }
 
