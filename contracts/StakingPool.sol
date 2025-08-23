@@ -5,13 +5,14 @@ pragma solidity ^0.8.25;
  */
 contract StakingPool {
     mapping(address => mapping(uint256 => string)) public checkpoints;
+    mapping(address caller => mapping(uint256 blockTimestamp => uint256 count)) public checkpointCounts;
     mapping(address => bool) public stakers;
     mapping(address => uint256) public stakedAmounts;
 
     string public version;
 
     constructor() {
-        version = "0.2.16";
+        version = "0.2.18";
     }
 
     /**
@@ -72,11 +73,13 @@ contract StakingPool {
     function checkpoint(string memory methodName) public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = methodName;
         checkpoints[msg.sender][block.timestamp] = "checkpoint";
+        checkpointCounts[msg.sender][block.timestamp]++;
         return true;
     }
 
     function testFunctionForCheckPoint() public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = "testFunctionForCheckPoint";
+        checkpointCounts[msg.sender][block.timestamp]++;
         return true;
     }
 
