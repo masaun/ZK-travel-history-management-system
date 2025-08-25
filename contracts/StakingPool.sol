@@ -12,7 +12,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.20";
+        version = "0.2.22";
     }
 
     /**

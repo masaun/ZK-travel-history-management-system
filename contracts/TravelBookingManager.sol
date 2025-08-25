@@ -15,6 +15,7 @@ contract TravelBookingManager {
     //TravelBookingProofVerifier public travelBookingProofVerifier;
 
     mapping(address => bool) public bookers;
+    mapping(address => bool) public propertyOwners;
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
     mapping(uint256 roomId => address booker) public bookerOfRooms;
     mapping(uint256 roomId => bool isListed) public listedRoomes;
@@ -31,7 +32,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.20";
+        version = "0.2.22";
     }
 
     /**
@@ -112,6 +113,20 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "unregisterAsBooker";
         require(bookers[msg.sender], "Booker does not exist");
         bookers[msg.sender] = false;
+        return true;
+    }
+
+    function registerAsPropertyOwner() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "registerAsPropertyOwner";
+        require(!propertyOwners[msg.sender], "Property Owner already exists");
+        propertyOwners[msg.sender] = true;
+        return true;
+    }
+
+    function unregisterAsPropertyOwner() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "unregisterAsPropertyOwner";
+        require(propertyOwners[msg.sender], "Property Owner does not exist");
+        propertyOwners[msg.sender] = false;
         return true;
     }
 
