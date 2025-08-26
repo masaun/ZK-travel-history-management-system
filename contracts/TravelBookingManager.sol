@@ -132,6 +132,8 @@ contract TravelBookingManager {
         return true;
     }
 
+    // [TODO]: Add the OTA registry / unregistry
+
     /**
      * @notice - checkpoint function
      */
