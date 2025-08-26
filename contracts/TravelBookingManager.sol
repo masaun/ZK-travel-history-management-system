@@ -32,7 +32,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.22";
+        version = "0.2.24";
     }
 
     /**
@@ -89,6 +89,8 @@ contract TravelBookingManager {
     }
 
     function listAvailableRooms(uint256 roomId, uint256 roomPrice) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "listAvailableRooms";
+        require(propertyOwners[msg.sender] == true, "Only property owners can list rooms");
         listedRoomes[roomId] = true;
         roomPrices[roomId] = roomPrice; // @dev - Set the price for the room
         return true;
