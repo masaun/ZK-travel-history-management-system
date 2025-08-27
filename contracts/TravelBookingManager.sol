@@ -16,6 +16,7 @@ contract TravelBookingManager {
 
     mapping(address => bool) public bookers;
     mapping(address => bool) public propertyOwners;
+    mapping(address => bool) public OTAs; // @dev - Online Travel Agencies
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
     mapping(uint256 roomId => address booker) public bookerOfRooms;
     mapping(uint256 roomId => bool isListed) public listedRoomes;
@@ -32,7 +33,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.24";
+        version = "0.2.25";
     }
 
     /**
@@ -132,7 +133,20 @@ contract TravelBookingManager {
         return true;
     }
 
-    // [TODO]: Add the OTA registry / unregistry
+    // @dev - The OTA (Online Travel Agencies) registry / unregistry
+    function registerAsOTA() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "registerAsOTA";
+        require(!OTAs[msg.sender], "OTA already exists");
+        OTAs[msg.sender] = true;
+        return true;
+    }
+
+    function unregisterAsOTA() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "unregisterAsOTA";
+        require(OTAs[msg.sender], "OTA does not exist");
+        OTAs[msg.sender] = false;
+        return true;
+    }
 
     /**
      * @notice - checkpoint function
