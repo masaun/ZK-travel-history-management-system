@@ -33,7 +33,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.25";
+        version = "0.2.26";
     }
 
     /**
@@ -58,6 +58,7 @@ contract TravelBookingManager {
     }
 
     function bookBooking(uint256 roomId) public payable returns (bool) {
+        require(bookers[msg.sender] == true || OTAs[msg.sender] == true, "You must be registered as a booker or an OTA");
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
         bookerOfRooms[roomId] = msg.sender;
