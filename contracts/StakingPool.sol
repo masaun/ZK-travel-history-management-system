@@ -12,7 +12,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.26";
+        version = "0.2.27";
     }
 
     /**
@@ -43,6 +43,13 @@ contract StakingPool {
         require(success, "Stake failed");
         checkpoints[msg.sender][block.timestamp] = "stakeNativeTokenIntoStakingPool";
         return true;
+    }
+
+    /**
+     * @notice - stake a given amount of a ERC20 token into the staking pool
+     */
+    function stakeERC20TokenIntoStakingPool() public returns (bool) {
+        // [TODO]:
     }
 
     /**
