@@ -46,13 +46,6 @@ contract StakingPool {
     }
 
     /**
-     * @notice - stake a given amount of a ERC20 token into the staking pool
-     */
-    function stakeERC20TokenIntoStakingPool() public returns (bool) {
-        // [TODO]:
-    }
-
-    /**
      * @notice - unstake a given amount of a native token from the staking pool
      */
     function unstakeNativeTokenFromStakingPool() public returns (bool) {
@@ -65,6 +58,20 @@ contract StakingPool {
         require(success, "Unstake failed");
         checkpoints[msg.sender][block.timestamp] = "unstakeNativeTokenFromStakingPool";
         return true;
+    }
+
+    /**
+     * @notice - stake a given amount of a ERC20 token into the staking pool
+     */
+    function stakeERC20TokenIntoStakingPool() public returns (bool) {
+        // [TODO]:
+    }
+
+    /**
+     * @notice - unstake a given amount of a ERC20 token from the staking pool
+     */
+    function unstakeERC20TokenFromStakingPool() public returns (bool) {
+        // [TODO]:
     }
 
     /**
