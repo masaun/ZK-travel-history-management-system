@@ -12,7 +12,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.27";
+        version = "0.2.28";
     }
 
     /**
@@ -65,6 +65,8 @@ contract StakingPool {
      */
     function stakeERC20TokenIntoStakingPool() public returns (bool) {
         // [TODO]:
+        checkpoints[msg.sender][block.timestamp] = "stakeERC20TokenIntoStakingPool";
+        return true;
     }
 
     /**
@@ -72,6 +74,8 @@ contract StakingPool {
      */
     function unstakeERC20TokenFromStakingPool() public returns (bool) {
         // [TODO]:
+        checkpoints[msg.sender][block.timestamp] = "unstakeERC20TokenFromStakingPool";
+        return true;
     }
 
     /**
