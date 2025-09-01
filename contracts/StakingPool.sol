@@ -5,14 +5,14 @@ pragma solidity ^0.8.25;
  */
 contract StakingPool {
     mapping(address => mapping(uint256 => string)) public checkpoints;
-    mapping(address caller => mapping(uint256 blockTimestamp => uint256 count)) public checkpointCounts;
+    mapping(address caller => uint256 count) public checkpointCounts;
     mapping(address => bool) public stakers;
     mapping(address => uint256) public stakedAmounts;
 
     string public version;
 
     constructor() {
-        version = "0.2.22";
+        version = "0.2.29";
     }
 
     /**
@@ -61,10 +61,37 @@ contract StakingPool {
     }
 
     /**
+     * @notice - stake a given amount of a ERC20 token into the staking pool
+     */
+    function stakeERC20TokenIntoStakingPool() public returns (bool) {
+        // [TODO]:
+        checkpoints[msg.sender][block.timestamp] = "stakeERC20TokenIntoStakingPool";
+        return true;
+    }
+
+    /**
+     * @notice - unstake a given amount of a ERC20 token from the staking pool
+     */
+    function unstakeERC20TokenFromStakingPool() public returns (bool) {
+        // [TODO]:
+        checkpoints[msg.sender][block.timestamp] = "unstakeERC20TokenFromStakingPool";
+        return true;
+    }
+
+    /**
      * @notice - Get the contract's native token balance
      */
     function getContractBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+
+    /**
+     * @notice - Get the rewards based on the count of a caller's checkpoints
+     */
+    function getRewards() public view returns (bool) {
+        uint256 rewardAmount = checkpointCounts[msg.sender] * 1 ether;  // 1 ether reward per checkpoint
+        require(rewardAmount > 0, "No rewards available");
+        return true;
     }
 
     /**
@@ -73,13 +100,13 @@ contract StakingPool {
     function checkpoint(string memory methodName) public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = methodName;
         checkpoints[msg.sender][block.timestamp] = "checkpoint";
-        checkpointCounts[msg.sender][block.timestamp]++;
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
     function testFunctionForCheckPoint() public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = "testFunctionForCheckPoint";
-        checkpointCounts[msg.sender][block.timestamp]++;
+        checkpointCounts[msg.sender]++;
         return true;
     }
 

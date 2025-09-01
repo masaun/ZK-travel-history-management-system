@@ -38,3 +38,12 @@ forge verify-contract \
   --verifier-url 'https://celo.blockscout.com/api/' \
   ${STAKING_POOL_ON_CELO_MAINNET} \
   ./contracts/StakingPool.sol:StakingPool
+
+# @notice - Verify the TravelBookingManager contract on Celo Mainnet. 
+echo "Verifying the TravelBookingManager contract on Celo Mainnet (via BlockScout)..."
+forge verify-contract \
+  --rpc-url ${CELO_MAINNET_RPC} \
+  --verifier blockscout \
+  --verifier-url 'https://celo.blockscout.com/api/' \
+  ${TRAVEL_BOOKING_MANAGER_ON_CELO_MAINNET} \
+  ./contracts/TravelBookingManager.sol:TravelBookingManager

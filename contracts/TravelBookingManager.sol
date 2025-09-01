@@ -16,6 +16,7 @@ contract TravelBookingManager {
 
     mapping(address => bool) public bookers;
     mapping(address => bool) public propertyOwners;
+    mapping(address => bool) public OTAs; // @dev - Online Travel Agencies
     mapping(address => mapping(uint256 => bool)) public bookedRooms;
     mapping(uint256 roomId => address booker) public bookerOfRooms;
     mapping(uint256 roomId => bool isListed) public listedRoomes;
@@ -32,7 +33,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.22";
+        version = "0.2.29";
     }
 
     /**
@@ -57,6 +58,7 @@ contract TravelBookingManager {
     }
 
     function bookBooking(uint256 roomId) public payable returns (bool) {
+        require(bookers[msg.sender] == true || OTAs[msg.sender] == true, "You must be registered as a booker or an OTA");
         checkpoints[msg.sender][block.timestamp] = "bookBooking";
         bookedRooms[msg.sender][roomId] = true;
         bookerOfRooms[roomId] = msg.sender;
@@ -89,6 +91,8 @@ contract TravelBookingManager {
     }
 
     function listAvailableRooms(uint256 roomId, uint256 roomPrice) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "listAvailableRooms";
+        require(propertyOwners[msg.sender] == true, "Only property owners can list rooms");
         listedRoomes[roomId] = true;
         roomPrices[roomId] = roomPrice; // @dev - Set the price for the room
         return true;
@@ -127,6 +131,21 @@ contract TravelBookingManager {
         checkpoints[msg.sender][block.timestamp] = "unregisterAsPropertyOwner";
         require(propertyOwners[msg.sender], "Property Owner does not exist");
         propertyOwners[msg.sender] = false;
+        return true;
+    }
+
+    // @dev - The OTA (Online Travel Agencies) registry / unregistry
+    function registerAsOTA() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "registerAsOTA";
+        require(!OTAs[msg.sender], "OTA already exists");
+        OTAs[msg.sender] = true;
+        return true;
+    }
+
+    function unregisterAsOTA() public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "unregisterAsOTA";
+        require(OTAs[msg.sender], "OTA does not exist");
+        OTAs[msg.sender] = false;
         return true;
     }
 

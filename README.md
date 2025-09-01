@@ -257,6 +257,14 @@ sh ./scripts/celo-mainnet/deployment/deploymentScript_StakingPool_via_celoscan.s
 
 <br>
 
+- Run the `DeploymentForTravelBookingManager_celoscan.s.sol` to deploy the  `TravelBookingManager` contract on Celo mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet (https://celoscan.io)
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelBookingManager_via_celoscan.sh
+```
+
+<br>
+
 ## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
