@@ -12,7 +12,7 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.29";
+        version = "0.2.30";
     }
 
     /**
@@ -22,6 +22,7 @@ contract StakingPool {
         require(!stakers[msg.sender], "You have already registered as a staker");
         stakers[msg.sender] = true;
         checkpoints[msg.sender][block.timestamp] = "registerAsStaker";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -29,6 +30,7 @@ contract StakingPool {
         require(stakers[msg.sender], "You are not registered as a staker");
         stakers[msg.sender] = false;
         checkpoints[msg.sender][block.timestamp] = "deregisterAsStaker";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -42,6 +44,7 @@ contract StakingPool {
         (bool success, ) = address(this).call{value: msg.value}("");
         require(success, "Stake failed");
         checkpoints[msg.sender][block.timestamp] = "stakeNativeTokenIntoStakingPool";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -57,6 +60,7 @@ contract StakingPool {
         (bool success, ) = staker.call{value: amount}("");
         require(success, "Unstake failed");
         checkpoints[msg.sender][block.timestamp] = "unstakeNativeTokenFromStakingPool";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -66,6 +70,7 @@ contract StakingPool {
     function stakeERC20TokenIntoStakingPool() public returns (bool) {
         // [TODO]:
         checkpoints[msg.sender][block.timestamp] = "stakeERC20TokenIntoStakingPool";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -75,6 +80,7 @@ contract StakingPool {
     function unstakeERC20TokenFromStakingPool() public returns (bool) {
         // [TODO]:
         checkpoints[msg.sender][block.timestamp] = "unstakeERC20TokenFromStakingPool";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
@@ -117,6 +123,7 @@ contract StakingPool {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
         checkpoints[msg.sender][block.timestamp] = "receive";
+        checkpointCounts[msg.sender]++;
     }
 
     /**
@@ -126,5 +133,6 @@ contract StakingPool {
         require(msg.value > 0, "Must send some Ether");
         stakedAmounts[msg.sender] += msg.value;
         checkpoints[msg.sender][block.timestamp] = "fallback";
+        checkpointCounts[msg.sender]++;
     }
 }
