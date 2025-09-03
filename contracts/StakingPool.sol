@@ -1,9 +1,13 @@
 pragma solidity ^0.8.25;
 
+import { IERC20 } from "./interfaces/IERC20.sol";
+
 /**
  * @notice - The StakingPool contract
  */
 contract StakingPool {
+    IERC20 public usdc; // USDC token contract instance
+
     mapping(address => mapping(uint256 => string)) public checkpoints;
     mapping(address caller => uint256 count) public checkpointCounts;
     mapping(address => bool) public stakers;
@@ -12,7 +16,8 @@ contract StakingPool {
     string public version;
 
     constructor() {
-        version = "0.2.30";
+        usdc = IERC20(0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913); // USDC token on BASE Mainnet
+        version = "0.2.31";
     }
 
     /**
