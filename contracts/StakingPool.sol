@@ -84,10 +84,34 @@ contract StakingPool {
      */
     function unstakeERC20TokenFromStakingPool() public returns (bool) {
         // [TODO]:
+        require(usdc.balanceOf(address(this)) > 0, "No staked ERC20 tokens to withdraw");
         checkpoints[msg.sender][block.timestamp] = "unstakeERC20TokenFromStakingPool";
         checkpointCounts[msg.sender]++;
         return true;
     }
+
+    /**
+     * @notice - stake a given amount of a USDC (ERC20 token) into the staking pool
+     */
+    function stakeUSDCIntoStakingPool(uint amount) public returns (bool) {
+        require(usdc.balanceOf(msg.sender) > amount, "Insufficient ERC20 token balance to stake");
+        //usdc.safeTransferFrom(msg.sender, address(this), amount);
+        checkpoints[msg.sender][block.timestamp] = "stakeUSDCIntoStakingPool";
+        checkpointCounts[msg.sender]++;
+        return true;
+    }
+
+    /**
+     * @notice - unstake a given amount of a USDC (ERC20 token) from the staking pool
+     */
+    function unstakeUSDCFromStakingPool() public returns (bool) {
+        require(usdc.balanceOf(address(this)) > 0, "No staked ERC20 tokens to withdraw");
+        //usdc.safeTransfer(msg.sender, amount);
+        checkpoints[msg.sender][block.timestamp] = "unstakeERC20TokenFromStakingPool";
+        checkpointCounts[msg.sender]++;
+        return true;
+    }
+
 
     /**
      * @notice - Get the contract's native token balance
