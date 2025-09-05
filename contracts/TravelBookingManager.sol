@@ -26,6 +26,7 @@ contract TravelBookingManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => mapping(uint256 => string)) public checkpoints;
+    mapping(address caller => uint256 count) public checkpointCounts;
 
     string public version;
 
@@ -33,7 +34,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.31";
+        version = "0.2.33";
     }
 
     /**
@@ -155,6 +156,7 @@ contract TravelBookingManager {
     function checkpoint(string memory methodName) public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = methodName;
         checkpoints[msg.sender][block.timestamp] = "checkpoint";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
