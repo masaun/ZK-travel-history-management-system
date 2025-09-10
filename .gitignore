@@ -23,5 +23,4 @@ node_modules
 package-lock.json
 
 hardhat
-artifacts
 ignition
