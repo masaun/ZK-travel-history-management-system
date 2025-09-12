@@ -281,7 +281,7 @@ sh ./script/celo-testnet/deployment/deployment-on-celo-testnet.sh
 <br>
 
 ## Smart Contract - Verification on BASE mainnet (`Each SC`)
-- Run for verifying the  `All` contract on BASE mainnet:
+- Run for verifying the `All` contract on BASE mainnet:
   - NOTE: The smart contract is verified in `BlockScout` of BASE Mainnet (https://base.blockscout.com)
 ```bash
 sh ./scripts/base-mainnet/verification/verificationScript_AllContracts_via_blockscout.sh
@@ -290,7 +290,7 @@ sh ./scripts/base-mainnet/verification/verificationScript_AllContracts_via_block
 <br>
 
 ## Smart Contract - Verification on Celo mainnet (`Each SC`)
-- Run for verifying the  `All` contract on Celo mainnet:
+- Run for verifying the `All` contract on Celo mainnet:
   - NOTE: The smart contract is verified in `BlockScout` of Celo Mainnet (https://celo.blockscout.com)
 ```bash
 sh ./scripts/celo-mainnet/verification/verificationScript_AllContracts_via_blockscout.sh
