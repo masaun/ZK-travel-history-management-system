@@ -8,16 +8,28 @@ name = "staking_pool_on_anvil"
 path = "local-anvil/batch-sc-call/staking_pool.rs"
 
 [[bin]] # For the SC scripts of the StakingPool contract on Base Mainnet (for Batch SC calls)
-name = "staking_pool_on_base_mainnet"
+name = "staking_pool_on_base_mainnet_with_batch_sc_call"
 path = "base-mainnet/batch-sc-call/staking_pool.rs"
 
 [[bin]] # For the SC scripts of the TravelHistoryManager contract on Base Mainnet (for Batch SC calls)
-name = "travel_history_manager_on_base_mainnet"
+name = "travel_history_manager_on_base_mainnet_with_batch_sc_call"
 path = "base-mainnet/batch-sc-call/travel_history_manager.rs"
 
 [[bin]] # For the SC scripts of the TravelBookingManager contract on Base Mainnet (for Batch SC calls)
-name = "travel_booking_manager_on_base_mainnet"
+name = "travel_booking_manager_on_base_mainnet_with_batch_sc_call"
 path = "base-mainnet/batch-sc-call/travel_booking_manager.rs"
+
+[[bin]] # For the SC scripts of the StakingPool contract on Base Mainnet (for a Single SC calls)
+name = "staking_pool_on_base_mainnet_with_single_sc_call"
+path = "base-mainnet/single-sc-call/staking_pool.rs"
+
+[[bin]] # For the SC scripts of the TravelHistoryManager contract on Base Mainnet (for a Single SC calls)
+name = "travel_history_manager_on_base_mainnet_with_single_sc_call"
+path = "base-mainnet/single-sc-call/travel_history_manager.rs"
+
+[[bin]] # For the SC scripts of the TravelBookingManager contract on Base Mainnet (for a Single SC calls)
+name = "travel_booking_manager_on_base_mainnet_with_single_sc_call"
+path = "base-mainnet/single-sc-call/travel_booking_manager.rs"
 
 [dependencies]
 tokio = { version = "1.0", features = ["full"] }
