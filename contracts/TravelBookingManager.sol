@@ -1,5 +1,8 @@
 pragma solidity ^0.8.25;
 
+// [TODO]: Integrate a ReClaim Protocol's verifier contract.
+import { ReclaimProtocolVerifier } from "./reclaim-protocol/ReclaimProtocolVerifier.sol";
+
 // [TODO]: Once the TravelBookingProofVerifier is implemented, uncomment the import statement below
 //import { TravelBookingProofVerifier } from "./TravelBookingProofVerifier.sol";
 import { DataType } from "./dataType/DataType.sol";
@@ -10,6 +13,9 @@ import { DataType } from "./dataType/DataType.sol";
  */
 contract TravelBookingManager {
     using DataType for DataType.PublicInput;
+
+    // [TODO]: Integrate a ReClaim Protocol's verifier contract.
+    ReclaimProtocolVerifier public reclaimProtocolVerifier;
 
     // [TODO]: Once the TravelBookingProofVerifier is implemented, uncomment the import statement below
     //TravelBookingProofVerifier public travelBookingProofVerifier;
@@ -26,6 +32,7 @@ contract TravelBookingManager {
     mapping(bytes32 hash => bool isNullified) public nullifiers;
 
     mapping(address => mapping(uint256 => string)) public checkpoints;
+    mapping(address caller => uint256 count) public checkpointCounts;
 
     string public version;
 
@@ -33,7 +40,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.29";
+        version = "0.2.37";
     }
 
     /**
@@ -155,6 +162,7 @@ contract TravelBookingManager {
     function checkpoint(string memory methodName) public returns (bool) {
         checkpoints[msg.sender][block.timestamp] = methodName;
         checkpoints[msg.sender][block.timestamp] = "checkpoint";
+        checkpointCounts[msg.sender]++;
         return true;
     }
 
