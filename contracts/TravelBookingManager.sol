@@ -40,7 +40,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.2.40";
+        version = "0.31.69";
     }
 
     /**
@@ -192,4 +192,13 @@ contract TravelBookingManager {
         // require(success, "Transfering back failed");
         checkpoints[msg.sender][block.timestamp] = "fallback";
     }
+
+
+    function addToTwentyNine(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "addToTwentyNine";
+        checkpointCounts[msg.sender]++;
+        return true;
+    }
+
+
 }
