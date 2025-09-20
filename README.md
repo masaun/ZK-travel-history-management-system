@@ -297,6 +297,14 @@ sh ./scripts/base-mainnet/verification/verificationScript_AllContracts_via_block
 
 <br>
 
+- Run for verifying the `All` contract on BASE mainnet:
+  - NOTE: The smart contract is verified in `BaseScan` of BASE Mainnet ()
+```bash
+sh ./scripts/base-mainnet/verification/verificationScript_AllContracts_via_basescan.sh
+```
+
+<br>
+
 ## Smart Contract - Verification on Celo mainnet (`Each SC`)
 - Run for verifying the `All` contract on Celo mainnet:
   - NOTE: The smart contract is verified in `BlockScout` of Celo Mainnet (https://celo.blockscout.com)
