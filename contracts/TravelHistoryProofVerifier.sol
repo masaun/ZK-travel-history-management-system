@@ -16,7 +16,7 @@ contract TravelHistoryProofVerifier {
 
     constructor(HonkVerifier _verifier) {
         verifier = _verifier;
-        version = "0.46.84";
+        version = "0.50.88";
     }
 
     function verifyTravelHistoryProof(bytes calldata proof, bytes32[] calldata publicInput) public view returns (bool) {
