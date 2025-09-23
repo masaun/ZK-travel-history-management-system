@@ -1,6 +1,6 @@
 // @dev - Alloy
 use alloy::{
-    network::AnyNetwork, // @dev - icl. AnyNetwork for Base Mainnet
+    network::AnyNetwork, // @dev - icl. AnyNetwork for Celo Mainnet
     providers::{Provider, ProviderBuilder},
     signers::local::PrivateKeySigner,
     sol,
@@ -25,8 +25,8 @@ use std::env;
 
 
 /**
- * @dev - Call the TravelBookingManager#checkpoint() on Base Mainnet
- * @dev - Run this script with the "sh ./base-mainnet/runningScript_TravelBookingManager.sh" command at the root directory (= /rs)
+ * @dev - Call the TravelBookingManager#checkpoint() on Celo Mainnet
+ * @dev - Run this script with the "sh ./celo-mainnet/runningScript_TravelBookingManager.sh" command at the root directory (= /rs)
  * @dev - Example: `any_network` 🔴
  *    (Run: `cargo run --example any_network` 🟣)
  *    https://alloy.rs/examples/advanced/any_network#example-any_network
@@ -37,7 +37,7 @@ async fn main() {
 }
 
 /**
- * @dev - Batch call the TravelBookingManager#checkpoint() function on Base Mainnet
+ * @dev - Batch call the TravelBookingManager#checkpoint() function on Celo Mainnet
  * @dev - 1/ for-loop of the 5 private keys + Call the checkpoint() function inside it.
  * @dev - 2/ for-loop of the 12 SC address of TravelBookingManager
  */
@@ -66,7 +66,7 @@ pub async fn batch_call() {
     ];
 
     // 3. Fetch an array of the TravelBookingManager contract addresses from .env file
-    let _contract_addresses_array = env::var("TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET_SINGLE_SC_CALL_LIST").unwrap_or_default();
+    let _contract_addresses_array = env::var("TRAVEL_BOOKING_MANAGER_ON_CELO_MAINNET_LIST").unwrap_or_default();
     println!("✅ contract_addresses_array: {:?}", _contract_addresses_array);
 
     let contract_addresses_array: Vec<Address> = _contract_addresses_array
@@ -80,17 +80,14 @@ pub async fn batch_call() {
     println!("{:?}", contract_addresses_array);
 
     // @dev - for-loop of the 5 private keys + Call the checkpoint() function inside it.
-    for c in 1..=12 {
-        println!("🔄 Loop count (c): {}", c);
-        for i in 1..=5 {
-            let private_key = &list_of_private_keys[i - 1];
+    for i in 1..=5 {
+        let private_key = &list_of_private_keys[i - 1];
 
-            // @dev - for-loop of the 12 SC address of the InsuranceClaimManager contract
-            for contract_address in contract_addresses_array.iter() {
-                let result = checkpoint(private_key, *contract_address).await;
-                //let result = checkpoint(private_key.clone()).await;
-                //let result = checkpoint(private_key.expect("")).await;
-            }
+        // @dev - for-loop of the 12 SC address of the InsuranceClaimManager contract
+        for contract_address in contract_addresses_array.iter() {
+            let result = checkpoint(private_key, *contract_address).await;
+            //let result = checkpoint(private_key.clone()).await;
+            //let result = checkpoint(private_key.expect("")).await;
         }
     }
 
@@ -99,13 +96,13 @@ pub async fn batch_call() {
 }
 
 /**
- * @dev - Call the TravelHistoryManager#checkpoint() function on Base Mainnet
+ * @dev - Call the TravelHistoryManager#checkpoint() function on Celo Mainnet
  */
 pub async fn checkpoint(_private_key: &String, _contract_address: Address) -> eyre::Result<()> {
     // 1. Fetch values from env
     dotenv().ok();  // Loads .env file
     //let rpc_url = "https://mainnet.base.org".parse()?;
-    let rpc_url = env::var("BASE_MAINNET_RPC").expect("").parse()?;
+    let rpc_url = env::var("CELO_MAINNET_RPC").expect("").parse()?;
     let private_key = _private_key;
     //let private_key = env::var("PRIVATE_KEY")?;
     let contract_address: Address = _contract_address;
@@ -124,7 +121,7 @@ pub async fn checkpoint(_private_key: &String, _contract_address: Address) -> ey
     // Create provider with wallet  
     let provider = ProviderBuilder::new()
         .with_gas_estimation()
-        .network::<AnyNetwork>() // @dev - Use AnyNetwork for Base Mainnet
+        .network::<AnyNetwork>() // @dev - Use AnyNetwork for Celo Mainnet
         .wallet(signer)
         .connect_http(rpc_url);
 
@@ -136,7 +133,7 @@ pub async fn checkpoint(_private_key: &String, _contract_address: Address) -> ey
         .ok_or_else(|| eyre::eyre!("Failed to get TravelBookingManager contract bytecode"))?;
 
     let travel_booking_manager = TravelBookingManager::new(contract_address, &provider);
-    println!("✅ TravelBookingManager contract address on BASE Mainnet: {:?}", contract_address);
+    println!("✅ TravelBookingManager contract address on Celo Mainnet: {:?}", contract_address);
 
     // 7. Call the TravelBookingManager contract (expecting it to fail gracefully)
     println!("🔄 Calling the TravelBookingManager#checkpoint() ...");
