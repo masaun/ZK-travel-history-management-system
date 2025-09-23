@@ -66,7 +66,7 @@ pub async fn batch_call() {
     ];
 
     // 3. Fetch an array of StakingPool contract addresses from .env file
-    let _contract_addresses_array = env::var("STAKING_POOL_ON_BASE_MAINNET_SINGLE_SC_CALL_AND_SINGLE_SC_ADDRESS_LIST").unwrap_or_default();
+    let _contract_addresses_array = env::var("STAKING_POOL_ON_CELO_MAINNET_SINGLE_SC_CALL_AND_SINGLE_SC_ADDRESS_LIST").unwrap_or_default();
     println!("✅ contract_addresses_array: {:?}", _contract_addresses_array);
 
     let contract_addresses_array: Vec<Address> = _contract_addresses_array
