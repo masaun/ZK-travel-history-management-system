@@ -273,6 +273,14 @@ sh ./scripts/celo-mainnet/deployment/deploymentScript_TravelBookingManager_via_c
 
 <br>
 
+- Run the `3` contracts on Celo mainnet:
+  - NOTE: The smart contract is verified via the `CeloScan` of Celo Mainnet ()
+```bash
+sh ./scripts/celo-mainnet/deployment/deploymentScript_3-SCs_via_celoscan.sh
+```
+
+<br>
+
 ## Smart Contract - Deployment (on `Celo Alfajores Testnet`)
 
 - 1/ Create the `.env` file by coping the example file (`.env.example`) in the root directory.
