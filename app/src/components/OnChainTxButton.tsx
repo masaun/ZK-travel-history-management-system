@@ -1,9 +1,10 @@
 'use client'
 import { useDisconnect, useAppKit, useAppKitNetwork  } from '@reown/appkit/react'
-import { networks } from '@/config'
+import { config } from '@/config'
 
 // @dev - Wagmi, etc
-import { useReadContract, useWriteContract } from "wagmi";
+import { simulateContract, writeContract, readContract } from '@wagmi/core'
+//import { useReadContract, useWriteContract } from "wagmi";
 import TravelBookingManagerArtifact from "./artifacts/TravelBookingManager.sol/TravelBookingManager.json";
 //import { USDTAbi } from "../abi/USDTAbi";
 
@@ -15,7 +16,7 @@ export const OnChainTxButton = () => {
 
     const handleCallCheckpointFunction = async () => {
       try {
-        const result = await useWriteContract({
+        const result = await writeContract(config,{
             abi: TravelBookingManagerArtifact.abi,
             //abi: USDTAbi,
             address: TravelBookingManagerAddress as `0x${string}`,
