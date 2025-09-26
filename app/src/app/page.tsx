@@ -2,6 +2,7 @@
 import { ConnectButton } from "@/components/ConnectButton";
 import { InfoList } from "@/components/InfoList";
 import { ActionButtonList } from "@/components/ActionButtonList";
+import { OnChainTxButton } from "@/components/OnChainTxButton";
 import Image from 'next/image';
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <h1>AppKit Wagmi Next.js App Router Example</h1>
 
       <ConnectButton />
+      <OnChainTxButton />
       <ActionButtonList />
       <div className="advice">
         <p>
