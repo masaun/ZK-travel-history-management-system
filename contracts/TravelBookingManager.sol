@@ -40,7 +40,7 @@ contract TravelBookingManager {
     constructor() {
     //constructor(TravelBookingProofVerifier _travelBookingProofVerifier) {
         //travelBookingProofVerifier = _travelBookingProofVerifier;
-        version = "0.63.93";
+        version = "0.69.99";
     }
 
     /**
@@ -194,8 +194,8 @@ contract TravelBookingManager {
     }
 
 
-    function addToFiftySix(string memory methodName) public returns (bool) {
-        checkpoints[msg.sender][block.timestamp] = "addToFiftySix";
+    function addToSixtyOne(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "addToSixtyOne";
         checkpointCounts[msg.sender]++;
         return true;
     }
