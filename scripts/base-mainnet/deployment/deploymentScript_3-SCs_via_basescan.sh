@@ -23,51 +23,51 @@ echo "Deploying & Verifying the TravelBookingManager contract on BASE Mainnet (v
 forge script scripts/base-mainnet/deployment/DeploymentForTravelBookingManager_basescan.s.sol --slow --multi --broadcast --private-key ${BASE_MAINNET_PRIVATE_KEY} --verify --etherscan-api-key ${BASESCAN_API_KEY}
 
 
-################ 
-## Verification
-################
+####################################
+## SC Verification via BlockScout ##
+####################################
 
-# @notice - Verify the HonkVerifier contract on BASE Mainnet. 
-echo "Verifying the HonkVerifier contract on BASE Mainnet (via BlockScout)..."
-forge verify-contract \
-  --rpc-url ${BASE_MAINNET_RPC} \
-  --verifier blockscout \
-  --verifier-url 'https://base.blockscout.com/api/' \
-  ${HONK_VERIFIER_ON_BASE_MAINNET} \
-  ./contracts/circuit/ultra-verifier/plonk_vk.sol:HonkVerifier
+# # @notice - Verify the HonkVerifier contract on BASE Mainnet. 
+# echo "Verifying the HonkVerifier contract on BASE Mainnet (via BlockScout)..."
+# forge verify-contract \
+#   --rpc-url ${BASE_MAINNET_RPC} \
+#   --verifier blockscout \
+#   --verifier-url 'https://base.blockscout.com/api/' \
+#   ${HONK_VERIFIER_ON_BASE_MAINNET} \
+#   ./contracts/circuit/ultra-verifier/plonk_vk.sol:HonkVerifier
 
-# @notice - Verify the TravelHistoryProofVerifier contract on BASE Mainnet. 
-echo "Verifying the TravelHistoryProofVerifier contract on BASE Mainnet (via BlockScout)..."
-forge verify-contract \
-  --rpc-url ${BASE_MAINNET_RPC} \
-  --verifier blockscout \
-  --verifier-url 'https://base.blockscout.com/api/' \
-  ${TRAVEL_HISTORY_PROOF_VERIFIER_ON_BASE_MAINNET} \
-  ./contracts/TravelHistoryProofVerifier.sol:TravelHistoryProofVerifier
+# # @notice - Verify the TravelHistoryProofVerifier contract on BASE Mainnet. 
+# echo "Verifying the TravelHistoryProofVerifier contract on BASE Mainnet (via BlockScout)..."
+# forge verify-contract \
+#   --rpc-url ${BASE_MAINNET_RPC} \
+#   --verifier blockscout \
+#   --verifier-url 'https://base.blockscout.com/api/' \
+#   ${TRAVEL_HISTORY_PROOF_VERIFIER_ON_BASE_MAINNET} \
+#   ./contracts/TravelHistoryProofVerifier.sol:TravelHistoryProofVerifier
 
-# @notice - Verify the TravelHistoryManager contract on BASE Mainnet. 
-echo "Verifying the TravelHistoryManager contract on BASE Mainnet (via BlockScout)..."
-forge verify-contract \
-  --rpc-url ${BASE_MAINNET_RPC} \
-  --verifier blockscout \
-  --verifier-url 'https://base.blockscout.com/api/' \
-  ${TRAVEL_HISTORY_MANAGER_ON_BASE_MAINNET} \
-  ./contracts/TravelHistoryManager.sol:TravelHistoryManager
+# # @notice - Verify the TravelHistoryManager contract on BASE Mainnet. 
+# echo "Verifying the TravelHistoryManager contract on BASE Mainnet (via BlockScout)..."
+# forge verify-contract \
+#   --rpc-url ${BASE_MAINNET_RPC} \
+#   --verifier blockscout \
+#   --verifier-url 'https://base.blockscout.com/api/' \
+#   ${TRAVEL_HISTORY_MANAGER_ON_BASE_MAINNET} \
+#   ./contracts/TravelHistoryManager.sol:TravelHistoryManager
 
-# @notice - Verify the StakingPool contract on BASE Mainnet. 
-echo "Verifying the StakingPool contract on BASE Mainnet (via BlockScout)..."
-forge verify-contract \
-  --rpc-url ${BASE_MAINNET_RPC} \
-  --verifier blockscout \
-  --verifier-url 'https://base.blockscout.com/api/' \
-  ${STAKING_POOL_ON_BASE_MAINNET} \
-  ./contracts/StakingPool.sol:StakingPool
+# # @notice - Verify the StakingPool contract on BASE Mainnet. 
+# echo "Verifying the StakingPool contract on BASE Mainnet (via BlockScout)..."
+# forge verify-contract \
+#   --rpc-url ${BASE_MAINNET_RPC} \
+#   --verifier blockscout \
+#   --verifier-url 'https://base.blockscout.com/api/' \
+#   ${STAKING_POOL_ON_BASE_MAINNET} \
+#   ./contracts/StakingPool.sol:StakingPool
 
-# @notice - Verify the TravelBookingManager contract on BASE Mainnet. 
-echo "Verifying the TravelBookingManager contract on BASE Mainnet (via BlockScout)..."
-forge verify-contract \
-  --rpc-url ${BASE_MAINNET_RPC} \
-  --verifier blockscout \
-  --verifier-url 'https://base.blockscout.com/api/' \
-  ${TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET} \
-  ./contracts/TravelBookingManager.sol:TravelBookingManager
+# # @notice - Verify the TravelBookingManager contract on BASE Mainnet. 
+# echo "Verifying the TravelBookingManager contract on BASE Mainnet (via BlockScout)..."
+# forge verify-contract \
+#   --rpc-url ${BASE_MAINNET_RPC} \
+#   --verifier blockscout \
+#   --verifier-url 'https://base.blockscout.com/api/' \
+#   ${TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET} \
+#   ./contracts/TravelBookingManager.sol:TravelBookingManager

@@ -17,7 +17,7 @@ contract StakingPool {
 
     constructor() {
         usdc = IERC20(0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913); // USDC token on BASE Mainnet
-        version = "0.69.99";
+        version = "0.70.100";
     }
 
     /**
@@ -166,8 +166,8 @@ contract StakingPool {
     }
 
 
-    function addToSixtyOne(string memory methodName) public returns (bool) {
-        checkpoints[msg.sender][block.timestamp] = "addToSixtyOne";
+    function addToSixtyTwo(string memory methodName) public returns (bool) {
+        checkpoints[msg.sender][block.timestamp] = "addToSixtyTwo";
         checkpointCounts[msg.sender]++;
         return true;
     }
