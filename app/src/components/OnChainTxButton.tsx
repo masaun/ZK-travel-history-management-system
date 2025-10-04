@@ -2,6 +2,7 @@
 import { config } from '@/config'
 import { writeContract } from '@wagmi/core'
 import { useAccount, useChainId } from "wagmi";
+import { base } from '@reown/appkit/networks'
 import TravelBookingManagerArtifact from "./artifacts/TravelBookingManager.sol/TravelBookingManager.json";
 
 const TravelBookingManagerAddress = process.env.NEXT_PUBLIC_TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET;
@@ -18,7 +19,7 @@ export const OnChainTxButton = () => {
             functionName: "checkpoint",
             args: ["Test Checkpoint from Frontend"],
             account: address!,
-            chain: { id: chainId },
+            chain: base,
         });
         console.log("Transaction successful:", result);
       } catch (error) {
