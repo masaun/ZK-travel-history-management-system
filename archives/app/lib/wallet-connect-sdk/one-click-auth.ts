@@ -95,8 +95,8 @@ async function approvingAuthenticationRequests() {
         const auth = buildAuthObject(
             authPayload,
             {
-            t: "eip191", // signature type
-            s: signature,
+                t: "eip191", // signature type
+                s: signature,
             },
             `${chain}:${cryptoWallet.address}`
         );
