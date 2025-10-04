@@ -90,22 +90,6 @@ export default function Home() {
         </div>
 
         <footer className="relative justify-center my-8 flex flex-col items-center space-y-4">
-          <div className="flex space-x-6 text-sm">
-            <Link
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors underline"
-              href="https://github.com/masaun/zk-electroneum-in-noir"
-              target="_blank"
-            >
-              GitHub
-            </Link>
-            <Link
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors underline"
-              href="https://dashboard.reown.com"
-              target="_blank"
-            >
-              Reown Dashboard
-            </Link>
-          </div>
           <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
             <span>&copy; 2025 ZK Travel History</span>
             <span className="mx-2">&middot;</span>
