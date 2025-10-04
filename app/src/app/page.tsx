@@ -73,10 +73,6 @@ export default function Home() {
                 />
               </Field>
 
-              <div className="pt-4">
-                <ConnectButton />
-              </div>
-
               <Button
                 className={clsx(
                   'w-full justify-center inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 py-3 px-4 text-sm font-semibold text-white shadow-lg',
