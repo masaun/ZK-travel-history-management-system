@@ -1,7 +1,7 @@
 'use client'
 import { config } from '@/config'
 import { writeContract } from '@wagmi/core'
-import { useAccount, useChainId } from "wagmi";
+import { useAccount } from "wagmi";
 import { base } from '@reown/appkit/networks'
 import TravelBookingManagerArtifact from "./artifacts/TravelBookingManager.sol/TravelBookingManager.json";
 
@@ -9,7 +9,6 @@ const TravelBookingManagerAddress = process.env.NEXT_PUBLIC_TRAVEL_BOOKING_MANAG
 
 export const OnChainTxButton = () => {
     const { address, isConnected } = useAccount();
-    const chainId = useChainId();
 
     const handleCallCheckpointFunction = async () => {
       try {
