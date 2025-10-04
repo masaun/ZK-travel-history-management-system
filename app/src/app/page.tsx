@@ -1,7 +1,6 @@
 'use client'
 
 import TopBar from "../components/TopBar";
-import { ConnectButton } from "../components/ConnectButton";
 import { InfoList } from "../components/InfoList";
 import { ActionButtonList } from "../components/ActionButtonList";
 import { OnChainTxButton } from "../components/OnChainTxButton";
@@ -15,7 +14,6 @@ import {
   Textarea,
 } from '@headlessui/react'
 import clsx from 'clsx'
-import Link from 'next/link'
 
 export default function Home() {
   return (
