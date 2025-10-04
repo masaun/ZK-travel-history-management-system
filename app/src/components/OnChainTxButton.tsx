@@ -1,22 +1,10 @@
 'use client'
-imp        const result = await writeContract(config, {
-            abi: TravelBookingManagerArtifact.abi,
-            //abi: USDTAbi,
-            address: TravelBookingManagerAddress as `0x${string}`,
-            //address: USDTAddress,
-            functionName: "checkpoint",
-            args: ["Test Checkpoint from Frontend"],
-            account: address!,
-            chain: { id: chainId },
-        });
-        console.log("Transaction successful:", result);fig } from '@/config'
+import { config } from '@/config'
 import { writeContract } from '@wagmi/core'
 import { useAccount, useChainId } from "wagmi";
 import TravelBookingManagerArtifact from "./artifacts/TravelBookingManager.sol/TravelBookingManager.json";
-//import { USDTAbi } from "../abi/USDTAbi";
 
-const TravelBookingManagerAddress = process.env.NEXT_PUBLIC_TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET; // Replace with your contract address
-//const USDTAddress = "0x...";
+const TravelBookingManagerAddress = process.env.NEXT_PUBLIC_TRAVEL_BOOKING_MANAGER_ON_BASE_MAINNET;
 
 export const OnChainTxButton = () => {
     const { address, isConnected } = useAccount();
@@ -26,13 +14,13 @@ export const OnChainTxButton = () => {
       try {
         const result = await writeContract(config, {
             abi: TravelBookingManagerArtifact.abi,
-            //abi: USDTAbi,
             address: TravelBookingManagerAddress as `0x${string}`,
-            //address: USDTAddress,
             functionName: "checkpoint",
             args: ["Test Checkpoint from Frontend"],
+            account: address!,
+            chain: { id: chainId },
         });
-        console.log("Transaction initiated");
+        console.log("Transaction successful:", result);
       } catch (error) {
         console.error("Failed to call checkpoint function:", error);
       }
