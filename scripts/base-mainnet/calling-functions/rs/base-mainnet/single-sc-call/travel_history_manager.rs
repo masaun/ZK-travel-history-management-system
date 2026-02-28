@@ -79,8 +79,9 @@ pub async fn batch_call() {
 
     println!("{:?}", contract_addresses_array);
 
-    // @dev - for-loop of the 5 private keys + Call the checkpoint() function inside it.
-    for c in 1..=12 {
+    // @dev - for-loop (calling a function 12 times) of the 5 private keys + Call the checkpoint() function inside it.
+    for c in 1..=800 {   // @dev - Calling the function 800 times
+    //for c in 1..=12 {
         println!("🔄 Loop count (c): {}", c);
         for i in 1..=5 {
             let private_key = &list_of_private_keys[i - 1];

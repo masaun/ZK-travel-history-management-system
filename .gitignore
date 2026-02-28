@@ -21,6 +21,7 @@ circuits/test_wrongProof.toml
 
 node_modules
 package-lock.json
+bun.lockb
 
 hardhat
 ignition
